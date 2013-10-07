@@ -39,12 +39,12 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.reset_password
     if @user.save
-      #send email to user
+      UserMailer.confirmation_email(@user).deliver
       flash[:error] = "The code is #{@user.session_token}"
       redirect_to user_url(current_user)
     else
       flash[:errors] = @user.errors.full_messages
-      redirect_to addEmployee_user_url(current_user)
+      redirect_to add_employee_user_url(current_user)
     end
   end
 
