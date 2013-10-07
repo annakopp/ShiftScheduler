@@ -1,0 +1,24 @@
+<h1>Add a new Employee</h1>
+
+<form action="<%= create_employee_user_url(current_user) %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label>Email
+  <input type="text" name=user[email] value=""></label>
+  <br>
+
+  <label>First Name
+  <input type="text" name=user[first_name] value=""></label>
+  <br>
+
+  <label>Last Name
+  <input type="text" name=user[last_name] value=""></label>
+  <br>
+
+  <label>Account Type <br>
+  <input type="radio" name=user[user_type] value="admin">Admin<br>
+  <input type="radio" name=user[user_type] value="employee">Employee<br>
+  </label>
+
+  <input type="submit" value="Add User">
+</form>

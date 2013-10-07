@@ -1,0 +1,23 @@
+<form action="<%= update_confirmed_user_url(@user.id) %>" method="post">
+
+  <input type="hidden" name="_method" value="put">
+  <input
+     name="authenticity_token"
+     type="hidden"
+     value="<%= form_authenticity_token %>">
+
+
+
+  <label>Confirmation Code
+  <input type="text" name="code">
+  </label>
+  <br>
+
+  <label>Password
+  <input type="password" name="user[password]">
+  </label>
+  <br>
+
+
+  <input type="submit" value="Finish creating account">
+</form>

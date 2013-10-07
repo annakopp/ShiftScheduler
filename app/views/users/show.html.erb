@@ -1,0 +1,9 @@
+<h2> Welcome <%= @user.first_name %>! </h2>
+<p> You are an <%= @user.user_type %></p>
+
+<h3>Things you can do:</h3>
+<ul>
+  <li><%= link_to "Add an Employee", add_employee_user_url(@user) %></li>
+  <li><%= link_to "List all Employees", list_employees_user_url(@user) %></li>
+  <li>View account settings</li>
+</ul>
