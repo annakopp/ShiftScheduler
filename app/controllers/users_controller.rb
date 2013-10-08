@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_filter :require_admin, only: [:add_employee, :create_employee, :list_employees]
   before_filter :require_current_user!, :only => [:show]
   before_filter :require_no_current_user!, :only => [:create, :new]
+  before_filter :authorize_user, only: [:show]
 
   def create
     params[:user][:user_type] = "admin"
@@ -68,6 +69,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user && @user.session_token == params[:code]
       @user.account_status = "active"
+      @user.password = params[:user][:password]
       @user.save
       flash[:errors] = ["Please update your account information and change your password."]
       redirect_to edit_user_url(@user)

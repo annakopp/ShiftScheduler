@@ -18,7 +18,7 @@ module SessionsHelper
   end
 
   def authorize_user
-
+    redirect_to user_url(current_user) if current_user.id != params[:id].to_i
   end
 
   def require_no_current_user!

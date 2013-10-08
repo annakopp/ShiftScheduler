@@ -17,7 +17,8 @@ development:
   encoding: unicode
   database: ShiftScheduler_development
   pool: 5
-  username: appacademy
+  host: localhost
+  username: annakopp
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
