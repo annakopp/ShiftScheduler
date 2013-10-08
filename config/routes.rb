@@ -15,8 +15,9 @@ ShiftScheduler::Application.routes.draw do
 
   resource :session, :only => [:create, :destroy, :new]
 
-  resources :shifts, only: [:create, :new, :destroy]
+  resources :shifts, only: [:create, :new, :destroy, :index]
 
+  resource :shift_request, only: [:create]
 
 
   # The priority is based upon order of creation:

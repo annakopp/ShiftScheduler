@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_many :created_shifts,
   class_name: "Shift",
   primary_key: :id,
-  foreign_key: :shift_id
+  foreign_key: :manager_id
 
   has_many :shift_requests,
   class_name: "ShiftRequest",
@@ -44,6 +44,9 @@ class User < ActiveRecord::Base
   primary_key: :id,
   foreign_key: :company_id
 
+  def admin?
+    self.user_type == "admin"
+  end
 
 
 

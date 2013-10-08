@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  shift_id: 1
+  employee_id: 1
+  status: MyString
+
+two:
+  shift_id: 1
+  employee_id: 1
+  status: MyString
