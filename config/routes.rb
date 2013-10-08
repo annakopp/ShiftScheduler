@@ -1,5 +1,7 @@
 ShiftScheduler::Application.routes.draw do
 
+  root to: "users#show"
+
   resources :users, :only => [:create, :new, :show, :edit] do
     get "add_employee", on: :member
     post "create_employee", on: :member
@@ -11,7 +13,7 @@ ShiftScheduler::Application.routes.draw do
 
   resource :session, :only => [:create, :destroy, :new]
 
-  root to: "sessions#new"
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
