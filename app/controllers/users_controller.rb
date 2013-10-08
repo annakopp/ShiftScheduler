@@ -3,6 +3,26 @@ class UsersController < ApplicationController
   before_filter :require_current_user!, :only => [:show]
   before_filter :require_no_current_user!, :only => [:create, :new]
 
+
+  def index
+    @user = current_user
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def show
+    if params.include?(:id)
+       @user = User.find(params[:id])
+      if cannot? :read, @user
+        redirect_to user_url(current_user)
+      end
+    else
+      redirect_to user_url(current_user)
+    end
+  end
+
   def create
     params[:user][:user_type] = "admin"
     params[:user][:account_status] = "active"
@@ -25,8 +45,28 @@ class UsersController < ApplicationController
       redirect_to new_user_url
     else
       self.current_user = @user
-      redirect_to user_url(@user)
+      redirect_to users_url
     end
+  end
+
+  def edit
+    @user = User.find(params[:id])
+    if cannot? :edit, @user
+      redirect_to users_url
+    else
+      render :edit
+    end
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      redirect_to users_url
+    else
+      flash[:errors] = @user.errors.full_messages
+      redirect_to edit_user_url(@user)
+    end
+
   end
 
   def add_employee
@@ -59,27 +99,6 @@ class UsersController < ApplicationController
     render :confirm_user
   end
 
-  def edit
-    @user = User.find(params[:id])
-    if cannot? :edit, @user
-      redirect_to user_url(current_user)
-    else
-      render :edit
-    end
-  end
-
-  def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      redirect_to user_url(@user)
-    else
-      flash[:errors] = @user.errors.full_messages
-      redirect_to edit_user_url(@user)
-    end
-
-  end
-
-
   def update_confirmed
     @user = User.find(params[:id])
     if @user && @user.session_token == params[:code]
@@ -95,18 +114,4 @@ class UsersController < ApplicationController
   end
 
 
-  def new
-    @user = User.new
-  end
-
-  def show
-    if params.include?(:id)
-       @user = User.find(params[:id])
-      if cannot? :read, @user
-        redirect_to user_url(current_user)
-      end
-    else
-      redirect_to user_url(current_user)
-    end
-  end
 end
