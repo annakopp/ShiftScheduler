@@ -25,4 +25,12 @@ class ShiftRequestsController < ApplicationController
     end
   end
 
+  def index
+    if current_user.admin?
+      @requests = ShiftRequest.where("? IN (SELECT manager_id FROM users)", current_user.id).includes(:shift)
+    else
+      @requests = current_user.shift_requests
+    end
+  end
+
 end

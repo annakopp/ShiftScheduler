@@ -1,0 +1,6 @@
+<h1>Pending Requests for you to approve</h1>
+<ul>
+  <% @requests.each do |request| %>
+    <li><%= request.shift.name %></li>
+  <% end %>
+</ul>
