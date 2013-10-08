@@ -2,15 +2,15 @@ ShiftScheduler::Application.routes.draw do
 
   root to: "users#show"
 
-  resources :users, :only => [:create, :new, :show, :edit] do
-    
+  resources :users, :only => [:create, :new, :index, :show, :edit, :update] do
+
     post "create_employee", on: :member
-    get "list_employees", on: :member
+
     put 'update_confirmed', on: :member
     get 'confirm', to: 'users#confirm_user'
   end
 
-
+  get "list_employees", to: "users#list_employees"
   get "add_employee", to: "users#add_employee"
 
   resource :session, :only => [:create, :destroy, :new]

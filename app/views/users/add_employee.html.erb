@@ -1,3 +1,4 @@
+<% if can? :add_employees, current_user %>
 <h1>Add a new Employee</h1>
 
 <form action="<%= create_employee_user_url(current_user) %>" method="post">
@@ -22,3 +23,4 @@
 
   <input type="submit" value="Add User">
 </form>
+<% end %>

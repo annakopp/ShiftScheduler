@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_filter :require_admin, only: [:add_employee, :create_employee, :list_employees]
   before_filter :require_current_user!, :only => [:show]
   before_filter :require_no_current_user!, :only => [:create, :new]
-  before_filter :authorize_user, only: [:show]
 
   def create
     params[:user][:user_type] = "admin"
@@ -14,7 +13,7 @@ class UsersController < ApplicationController
       ActiveRecord::Base.transaction do
 
         @user.save
-
+        @user.update_attributes(manager_id: @user.id)
         @company.admin_id = @user.id
         @company.save
 
@@ -50,7 +49,7 @@ class UsersController < ApplicationController
   end
 
   def list_employees
-    @user = User.find(params[:id])
+    @user = current_user
     @employees = @user.employees
     render :list_employees
   end
@@ -60,7 +59,23 @@ class UsersController < ApplicationController
     render :confirm_user
   end
 
-  def edit_employee
+  def edit
+    @user = User.find(params[:id])
+    if cannot? :edit, @user
+      redirect_to user_url(current_user)
+    else
+      render :edit
+    end
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      redirect_to user_url(@user)
+    else
+      flash[:errors] = @user.errors.full_messages
+      redirect_to edit_user_url(@user)
+    end
 
   end
 
@@ -86,7 +101,10 @@ class UsersController < ApplicationController
 
   def show
     if params.include?(:id)
-      @user = User.find(params[:id])
+       @user = User.find(params[:id])
+      if cannot? :read, @user
+        redirect_to user_url(current_user)
+      end
     else
       redirect_to user_url(current_user)
     end

@@ -17,10 +17,6 @@ module SessionsHelper
     redirect_to new_session_url if current_user.nil?
   end
 
-  def authorize_user
-    redirect_to user_url(current_user) if current_user.id != params[:id].to_i
-  end
-
   def require_no_current_user!
     redirect_to user_url(current_user) unless current_user.nil?
   end
