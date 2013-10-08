@@ -22,6 +22,18 @@ class User < ActiveRecord::Base
   primary_key: :id,
   foreign_key: :manager_id
 
+  has_many :created_shifts,
+  class_name: "Shift",
+  primary_key: :id,
+  foreign_key: :shift_id
+
+  has_many :shift_requests,
+  class_name: "ShiftRequest",
+  primary_key: :id,
+  foreign_key: :employee_id
+
+  has_many :working_shifts, through: :shift_requests, source: :shift
+
   belongs_to :manager,
   class_name: "User",
   primary_key: :id,
@@ -31,6 +43,9 @@ class User < ActiveRecord::Base
   class_name: "Company",
   primary_key: :id,
   foreign_key: :company_id
+
+
+
 
   def self.find_by_credentials(email, password)
     user = User.find_by_email(email)

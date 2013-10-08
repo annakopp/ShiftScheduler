@@ -1,6 +1,6 @@
 ShiftScheduler::Application.routes.draw do
 
-  root to: "users#show"
+  root to: "users#index"
 
   resources :users, :only => [:create, :new, :index, :show, :edit, :update] do
 
@@ -14,6 +14,8 @@ ShiftScheduler::Application.routes.draw do
   get "add_employee", to: "users#add_employee"
 
   resource :session, :only => [:create, :destroy, :new]
+
+  resources :shifts, only: [:create, :new, :destroy]
 
 
 
