@@ -29,7 +29,16 @@ class ShiftRequestsController < ApplicationController
     if current_user.admin?
       @requests = ShiftRequest.where(" status=? AND ? IN (SELECT manager_id FROM users)", "pending", current_user.id).includes(:shift).includes(:employee)
     else
-      @requests = current_user.shift_requests.where(status: "pending")
+      @requests = current_user.shift_requests.includes(:shift)
+      #@shifts = @requests.map{|req| req.shift }
+
+      respond_to do |format|
+        format.html {render :index}
+        # format.json {render json: @shifts.to_json(only: [:end_date, :start_date, :name, :slots])}
+        format.json {render json: @requests, include: :shift }
+      end
+
+
     end
   end
 

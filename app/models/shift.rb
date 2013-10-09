@@ -29,7 +29,7 @@ class Shift < ActiveRecord::Base
              start: start_date.to_s + "T"+ start_time.strftime("%H:%M") + ":00Z",
              title: name,
              slots: slots,
-             allDay: false
+             allDay: false,
            }
     json
   end
