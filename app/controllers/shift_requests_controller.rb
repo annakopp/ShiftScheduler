@@ -27,22 +27,27 @@ class ShiftRequestsController < ApplicationController
 
   def index
     if current_user.admin?
-      @requests = ShiftRequest.where(" status=? AND ? IN (SELECT manager_id FROM users)", "pending", current_user.id).includes(:shift)
+      @requests = ShiftRequest.where(" status=? AND ? IN (SELECT manager_id FROM users)", "pending", current_user.id).includes(:shift).includes(:employee)
     else
-      @requests = current_user.shift_requests
+      @requests = current_user.shift_requests.where(status: "pending")
     end
   end
 
+  def destroy
+    @shift_request = ShiftRequest.find(params[:id])
+    @shift_request.destroy
+    redirect_to shift_requests_url
+  end
 
   def update
     @shift_request = ShiftRequest.find(params[:id])
     if @shift_request.update_attributes(status: params[:status])
-      @shift_request.shift.slots -= 1
+      @shift_request.shift.decrement_slots
       redirect_to shift_requests_url
     else
       render[:errors] = @shift_request.errors.full_messages
       redirect_to shift_requests_url
     end
-      
+
   end
 end

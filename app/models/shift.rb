@@ -18,5 +18,9 @@ class Shift < ActiveRecord::Base
 
   has_many :employees, through: :shift_requests, source: :employee
 
+  def decrement_slots
+    self.slots >=0 ? self.slots -= 1 : self.slots = 0
+    self.save
+  end
 
 end

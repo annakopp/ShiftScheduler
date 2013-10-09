@@ -1,7 +1,21 @@
+<% if current_user.admin? %>
 <h1>Pending Requests for you to approve</h1>
 <ul>
   <% @requests.each do |request| %>
     <li>
-		<%=button_to "Approve", shift_request_url(request.id, status: "approved"), method: :put %> <%=button_to "Deny", shift_request_url(request.id, status: "denied"), method: :put %> <%= request.shift.name %></li>
+		<%=button_to "Approve", shift_request_url(request.id, status: "approved"), method: :put %> <%=button_to "Deny", shift_request_url(request.id, status: "denied"), method: :put %> <%= request.shift.name %><%= request.employee.first_name %></li>
   <% end %>
 </ul>
+
+
+<% else  %>
+
+<h1>Pending Requests</h1>
+<ul>
+  <% @requests.each do |request| %>
+    <li>
+		<%=button_to "Cancel Request", shift_request_url(request.id), method: :delete %> <%= request.shift.name %></li>
+  <% end %>
+</ul>
+
+<% end %>

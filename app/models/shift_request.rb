@@ -2,7 +2,7 @@ class ShiftRequest < ActiveRecord::Base
   attr_accessible :employee_id, :shift_id, :status
 
   belongs_to :employee,
-  class_name: "Employee",
+  class_name: "User",
   primary_key: :id,
   foreign_key: :employee_id
 
