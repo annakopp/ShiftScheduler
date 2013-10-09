@@ -26,5 +26,7 @@ class ShiftsController < ApplicationController
  #                .joins(:shift_requests)
     render :index
   end
+  
+
 
 end

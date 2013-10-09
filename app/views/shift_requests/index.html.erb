@@ -1,6 +1,7 @@
 <h1>Pending Requests for you to approve</h1>
 <ul>
   <% @requests.each do |request| %>
-    <li><%= request.shift.name %></li>
+    <li>
+		<%=button_to "Approve", shift_request_url(request.id, status: "approved"), method: :put %> <%=button_to "Deny", shift_request_url(request.id, status: "denied"), method: :put %> <%= request.shift.name %></li>
   <% end %>
 </ul>

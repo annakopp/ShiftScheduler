@@ -27,10 +27,22 @@ class ShiftRequestsController < ApplicationController
 
   def index
     if current_user.admin?
-      @requests = ShiftRequest.where("? IN (SELECT manager_id FROM users)", current_user.id).includes(:shift)
+      @requests = ShiftRequest.where(" status=? AND ? IN (SELECT manager_id FROM users)", "pending", current_user.id).includes(:shift)
     else
       @requests = current_user.shift_requests
     end
   end
 
+
+  def update
+    @shift_request = ShiftRequest.find(params[:id])
+    if @shift_request.update_attributes(status: params[:status])
+      @shift_request.shift.slots -= 1
+      redirect_to shift_requests_url
+    else
+      render[:errors] = @shift_request.errors.full_messages
+      redirect_to shift_requests_url
+    end
+      
+  end
 end
