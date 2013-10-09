@@ -23,4 +23,15 @@ class Shift < ActiveRecord::Base
     self.save
   end
 
+  def as_json(options={})
+
+    json = { end: end_date.to_s + "T"+ end_time.strftime("%H:%M") + ":00Z",
+             start: start_date.to_s + "T"+ start_time.strftime("%H:%M") + ":00Z",
+             title: name,
+             slots: slots,
+             allDay: false
+           }
+    json
+  end
+
 end

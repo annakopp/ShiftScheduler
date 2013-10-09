@@ -5,6 +5,8 @@
   <% end %>
 </ul>
 
+<%=  render partial: "form" %>
+
 <% else %>
 <form action="<%= shift_requests_url %>" method="post">
   <input type="hidden"
@@ -25,6 +27,8 @@
 
 <div id="calendar"></div>
 
+
+
 <script>
 $(document).ready(function() {
   $('#calendar').fullCalendar({
@@ -33,7 +37,10 @@ $(document).ready(function() {
     left: "title",
     center: "month, agendaWeek, agendaDay",
     right:  'today prev,next'
-  }
+  },
+  events: "/shifts.json",
+  height: 400,
+  aspectRation: 1,
   })
 });
 </script>
