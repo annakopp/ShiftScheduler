@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_admin, only: [:add_employee, :create_employee, :list_employees]
-  before_filter :require_current_user!, :only => [:show]
+  before_filter :require_current_user!, except: [:new, :create, :confirm_user, :update_confirmed]
   before_filter :require_no_current_user!, :only => [:create, :new]
 
 
