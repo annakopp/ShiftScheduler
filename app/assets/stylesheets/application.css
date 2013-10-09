@@ -13,3 +13,37 @@
  *= require fullcalendar
  *= require_tree .
  */
+
+body, div, ul, li {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: sans-serif;
+  vertical-align: baseline;
+
+}
+ul {
+  list-style: none;
+}
+
+.error{
+
+}
+
+.notice{
+
+}
+
+.dashboard{
+  float: right;
+}
+
+.dashboard ul li{
+  float: left;
+  padding: 5px;
+}
+
+.main-content{
+
+}
