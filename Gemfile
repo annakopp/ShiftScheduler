@@ -34,6 +34,10 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'cancan'
 
+gem 'jquery-ui-rails'
+
+gem 'fullcalendar-rails'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

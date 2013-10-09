@@ -22,3 +22,18 @@
   <input type="submit" value="Request Shifts">
 </form>
 <% end %>
+
+<div id="calendar"></div>
+
+<script>
+$(document).ready(function() {
+  $('#calendar').fullCalendar({
+  defaultView: "month",
+  header: {
+    left: "title",
+    center: "month, agendaWeek, agendaDay",
+    right:  'today prev,next'
+  }
+  })
+});
+</script>
