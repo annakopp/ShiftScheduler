@@ -7,12 +7,19 @@ class ShiftsController < ApplicationController
 
   def create
     params[:shift][:manager_id] = current_user.id
+    new_start = params[:shift][:start_date] + " " + params[:time][:start_time]
+    new_end = params[:shift][:end_date] + " " + params[:time][:end_time]
+    params[:shift][:start_date] =
+                          DateTime.strptime(new_start,'%Y-%m-%d %H:%M')
+    params[:shift][:end_date] =
+                          DateTime.strptime(new_end, '%Y-%m-%d %H:%M')
+
     @shift = Shift.new(params[:shift])
     if @shift.save
       redirect_to shifts_url
     else
       flash[:errors] = @shift.errors.full_messages
-      redirect_to new_shift_url(params)
+      redirect_to shifts_url
     end
   end
 

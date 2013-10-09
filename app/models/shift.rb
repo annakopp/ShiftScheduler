@@ -1,7 +1,7 @@
 class Shift < ActiveRecord::Base
-  attr_accessible :end_date, :manager_id, :name, :slots, :start_date, :end_time, :start_time
+  attr_accessible :end_date, :manager_id, :name, :slots, :start_date
 
-  validates_presence_of :end_date, :manager_id, :name, :slots, :start_date, :end_time, :start_time
+  validates_presence_of :end_date, :manager_id, :name, :slots, :start_date
 
   validates_uniqueness_of :name, scope: [:manager_id]
 
@@ -25,11 +25,11 @@ class Shift < ActiveRecord::Base
 
   def as_json(options={})
 
-    json = { end: end_date.to_s + "T"+ end_time.strftime("%H:%M") + ":00Z",
-             start: start_date.to_s + "T"+ start_time.strftime("%H:%M") + ":00Z",
+    json = { start: DateTime.parse(start_date.to_s).iso8601,
+             end: DateTime.parse(end_date.to_s).iso8601,
              title: name,
              slots: slots,
-             allDay: false,
+             allDay: false
            }
     json
   end
