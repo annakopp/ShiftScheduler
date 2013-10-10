@@ -1,33 +1,14 @@
 <%= javascript_include_tag "calendar/shift_calendar" %>
 
 <% if current_user.admin? %>
-  <ul>
-    <% @shifts.each do | shift| %>
-      <li><%= shift.name %></li>
-    <% end %>
-  </ul>
 
   <%=  render partial: "form" %>
 
-<% else %>
-  <form action="<%= shift_requests_url %>" method="post">
-    <input type="hidden"
-            name="authenticity_token"
-            value="<%= form_authenticity_token %>">
-
-    <% @shift_requests.each do |shift| %>
-      <label>
-        <input type="checkbox"
-               name="shift_requests[]"
-               value="<%= shift.id %>">
-      <%= shift.name %>
-      </label><br>
-    <%end %>
-
-    <input type="submit" value="Request Shifts">
-  </form>
 <% end %>
 
-<div id="calendar"></div>
+<div class="shifts group">
+  <div id="calendar"></div>
 
-<div class="shift-details"></div>
+  <div class="shift-details"></div>
+
+</div>

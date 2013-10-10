@@ -6,9 +6,8 @@ class ShiftsController < ApplicationController
   # end
 
   def show
-    @shift = Shift.includes(:shift_requests)
-                  .includes(:employees)
-                  .find(params[:id])
+    @shift =
+        Shift.includes(:shift_requests).includes(:employees).find(params[:id])
     if request.xhr?
       render partial: "shifts/shift"
     else
@@ -17,16 +16,11 @@ class ShiftsController < ApplicationController
   end
 
   def create
-    params[:shift][:manager_id] = current_user.id
-    new_start = params[:shift][:start_date] + " " + params[:time][:start_time]
-    new_end = params[:shift][:end_date] + " " + params[:time][:end_time]
-    params[:shift][:start_date] =
-                          DateTime.strptime(new_start,'%Y-%m-%d %H:%M')
-    params[:shift][:end_date] =
-                          DateTime.strptime(new_end, '%Y-%m-%d %H:%M')
+    parse_date
 
     @shift = Shift.new(params[:shift])
     if @shift.save
+
       redirect_to shifts_url
     else
       flash[:errors] = @shift.errors.full_messages
@@ -41,12 +35,21 @@ class ShiftsController < ApplicationController
 
     respond_to do |format|
       format.html {render :index}
-      # format.json {render json: @shifts.to_json(only: [:end_date, :start_date, :name, :slots])}
       format.json {render json: @shifts }
     end
 
   end
 
+  private
 
+  def parse_date
+    params[:shift][:manager_id] = current_user.id
+    new_start = params[:shift][:start_date] + " " + params[:time][:start_time]
+    new_end = params[:shift][:end_date] + " " + params[:time][:end_time]
+    params[:shift][:start_date] =
+                          DateTime.strptime(new_start,'%Y-%m-%d %H:%M')
+    params[:shift][:end_date] =
+                          DateTime.strptime(new_end, '%Y-%m-%d %H:%M')
+  end
 
 end

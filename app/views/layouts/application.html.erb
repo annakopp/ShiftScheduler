@@ -11,7 +11,7 @@
   <div class="error"><%= render partial: "layouts/error" %></div>
   <div class="notice"><%= render partial: "layouts/notice" %></div>
 
-  <div class="dashboard">
+  <div class="dashboard group">
     <% if !current_user.nil? %>
       <ul>
         <li><%= link_to current_user.email, edit_user_url(current_user) %> </li>
@@ -22,6 +22,8 @@
   </div>
 
   <div class="main-content">
+
+
     <%= yield %>
   </div>
 

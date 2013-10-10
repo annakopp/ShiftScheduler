@@ -82,6 +82,16 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def can_request?(shift)
+    shift.slots > 0 && !self.shift_requests.find_by_employee_id_and_shift_id(self.id, shift.id)
+  end
+
+  def can_cancel?(shift)
+    request = self.shift_requests.find_by_employee_id_and_shift_id(self.id, shift.id)
+    request && request.status == "pending"
+  end
+
+
   private
   def ensure_session_token
     self.session_token ||= self.class.generate_session_token

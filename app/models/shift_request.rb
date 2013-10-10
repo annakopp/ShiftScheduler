@@ -27,4 +27,5 @@ class ShiftRequest < ActiveRecord::Base
     json
   end
 
+
 end

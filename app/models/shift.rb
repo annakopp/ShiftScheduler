@@ -13,8 +13,7 @@ class Shift < ActiveRecord::Base
   has_many :shift_requests,
   class_name: "ShiftRequest",
   primary_key: :id,
-  foreign_key: :shift_id,
-  dependent: :destroy
+  foreign_key: :shift_id
 
   has_many :employees, through: :shift_requests, source: :employee
 
@@ -30,9 +29,12 @@ class Shift < ActiveRecord::Base
              title: name,
              slots: slots,
              id: id,
-             allDay: false
+             allDay: false,
+             backgroundColor: self.slots > 0 ? "green" : "red"
            }
     json
   end
+
+
 
 end
