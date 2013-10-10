@@ -47,3 +47,15 @@ ul {
 .main-content{
 
 }
+
+.button_to > div{
+  display: inline;
+}
+
+.button_to {
+  display: inline;
+}
+
+#calendar {
+  width: 600px;
+}

@@ -6,12 +6,8 @@
   <ul>
     <% @requests.each do |request| %>
       <li>
-  		  <%=button_to "Approve",
-                     shift_request_url(request.id, status: "approved"),
-                     method: :put %>
-        <%=button_to "Deny",
-                      shift_request_url(request.id, status: "denied"),
-                      method: :put %>
+        <%= render partial: "shift_requests/approve_deny", object: request %>
+
         <%= request.shift.name %><%= request.employee.first_name %>
       </li>
     <% end %>
@@ -19,7 +15,7 @@
 
 <% else  %>
 
-  <h1>Pending Requests</h1>
+  <h1>Your Pending Requests</h1>
   <ul>
     <% @requests.each do |request| %>
       <li>

@@ -29,7 +29,7 @@ class Shift < ActiveRecord::Base
              end: DateTime.parse(end_date.to_s).iso8601,
              title: name,
              slots: slots,
-             editable: true,
+             id: id,
              allDay: false
            }
     json

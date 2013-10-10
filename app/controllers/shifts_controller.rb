@@ -1,8 +1,19 @@
 class ShiftsController < ApplicationController
 
-  def new
-    @shift = Shift.new(params[:shift])
-    render :new
+  # def new
+  #   @shift = Shift.new(params[:shift])
+  #   render :new
+  # end
+
+  def show
+    @shift = Shift.includes(:shift_requests)
+                  .includes(:employees)
+                  .find(params[:id])
+    if request.xhr?
+      render partial: "shifts/shift"
+    else
+      render :show
+    end
   end
 
   def create
