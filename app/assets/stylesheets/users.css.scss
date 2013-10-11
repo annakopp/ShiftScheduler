@@ -2,6 +2,43 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.home {
-  padding: 40px;
+.main-nav {
+	float: left;
+  
+}
+
+.main-nav  > ul > li{
+	float: left;
+
+
+  
+}
+
+.main-nav  > ul > li > a{
+	float: left;
+	padding: 10px;
+	border-right: 1px solid black;
+
+  
+}
+
+
+.main-nav  > ul{
+  
+}
+
+
+
+.main-nav  > ul > li:hover{
+	background-color: #A690D4;
+  
+}
+
+.main-nav  > ul > li > a{
+	text-decoration: none;
+	text-transform: uppercase;
+	color: white;
+	font-size: 14px;
+	
+  
 }

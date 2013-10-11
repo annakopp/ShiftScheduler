@@ -39,19 +39,33 @@ ul {
 
 }
 
+header {
+	width: auto;
+	background-color: #2C84CC;
+	border-bottom: solid 10px black;
+	border-top: solid 10px black;
+
+}
+
+
 .dashboard{
-  margin:auto;
-  width: 900px;
-  background-color: white;
+	float: right;
 }
 
 .dashboard ul {
-  float: right;
+  
 }
 
 .dashboard ul li{
   float: left;
   padding: 5px;
+}
+
+.dashboard ul li input{
+	background-color: #2C84CC;
+	font-size: 14px;
+	text-transform: uppercase;
+	border: 0;
 }
 
 .group:after {
@@ -62,8 +76,6 @@ ul {
 
 .main-content{
   margin:auto;
-  width: 900px;
-  background: white;
 
 }
 
@@ -78,6 +90,7 @@ ul {
 #calendar {
   width: 600px;
   float: left;
+  background: white;
 }
 
 .shift-details {
