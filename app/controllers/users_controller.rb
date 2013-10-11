@@ -84,7 +84,7 @@ class UsersController < ApplicationController
       redirect_to user_url(current_user)
     else
       flash[:errors] = @user.errors.full_messages
-      redirect_to add_employee_user_url(current_user)
+      redirect_to add_employee_url(current_user)
     end
   end
 

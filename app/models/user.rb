@@ -91,20 +91,22 @@ class User < ActiveRecord::Base
   def can_cancel?(shift)
     request = self.shift_requests.find_by_employee_id_and_shift_id(self.id, shift.id)
     request && request.status == "pending"
+  
   end
 
+  def overlap?(shift)
+    working_shifts.each do |working_shift|
+      return true if shift.end_date >= working_shift.start_date && working_shift.end_date >= shift.start_date
+    end
+    false
+  end
 
   private
   def ensure_session_token
     self.session_token ||= self.class.generate_session_token
   end
 
-  def overlap?(shift)
-    working_shifts.each do |working_shift|
-      return true if shift.end_date > working_shift.start_date && working_shift.end_date > shift.start_date
-    end
 
-  end
 
 
 end
