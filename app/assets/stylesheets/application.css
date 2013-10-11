@@ -38,10 +38,10 @@ ul {
 .notice{
 
 }
-
+/*#2C84CC*/
 .header {
 	width: auto;
-	background-color: #2C84CC;
+	background-color: #7C8585;
 	border-bottom: solid 10px black;
 	border-top: solid 10px black;
 
@@ -62,7 +62,7 @@ ul {
 }
 
 .dashboard ul li input{
-	background-color: #2C84CC;
+	background-color: #7C8585;
 	font-size: 14px;
 	text-transform: uppercase;
 	border: 0;
@@ -113,4 +113,8 @@ ul {
 
 #calendar .fc-today {
   background-color: #B4CDD5;
+}
+
+.requested {
+  background-color: black;
 }

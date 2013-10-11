@@ -5,6 +5,8 @@ class Shift < ActiveRecord::Base
 
   #validates_uniqueness_of :name, scope: [:manager_id]
 
+  validate :start_date_after_end_date, :on => [:create, :update]
+
   belongs_to :manager,
   class_name: "Manager",
   primary_key: :id,
@@ -33,10 +35,21 @@ class Shift < ActiveRecord::Base
              id: id,
              allDay: false,
              backgroundColor: self.max_slots > self.slots  ? "green" : "red"
+             #className: requested?(current_user) ? "requested" : "normal"
            }
     json
   end
 
+  def requested?(user)
+    !!self.employees.find(user)
+  end
+
+
+  def start_date_after_end_date
+    if self.start_date > self.end_date
+      errors.add(:start_date, "can't  be after end date")
+    end
+  end
 
 
 end
