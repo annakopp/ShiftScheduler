@@ -67,7 +67,7 @@ class ShiftsController < ApplicationController
 
 
   def destroy
-    if cannot? :destroys, current_user
+    if cannot? :destroy, current_user
       redirect_to shifts_url
     else
       @shift = Shift.find(params[:id])
