@@ -22,7 +22,7 @@ class Shift < ActiveRecord::Base
 
 
   def decrement_slots
-    self.slots = self.shift_requests.count
+    self.slots = self.shift_requests.where(status: "approved").count
     self.save
   end
 
