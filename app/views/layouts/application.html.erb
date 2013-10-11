@@ -10,23 +10,24 @@
 
   <div class="error"><%= render partial: "layouts/error" %></div>
   <div class="notice"><%= render partial: "layouts/notice" %></div>
-	
+
 <% if !current_user.nil? %>
   <header class="header group">
 
 	  <div class="dashboard">
-	   
+
 	      <ul>
+          <li><%= current_user.email %></li>
 	        <li><%= button_to "Sign Out", session_url, :method => :delete %></li>
 	      </ul>
 	  </div>
-  
-  
+
+
 	  <nav class="main-nav">
 	 	 <%= render partial: "users/sidebar" %>
 	  </nav>
   </header>
-  
+
 <% end %>
 
   <div class="main-content group">

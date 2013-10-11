@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   end
 
   def can_request?(shift)
-    return false if shift.slots < 1
+    return false if shift.slots >= shift.max_slots
     return false if overlap?(shift)
     !self.shift_requests.find_by_employee_id_and_shift_id(self.id, shift.id)
   end
@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   def can_cancel?(shift)
     request = self.shift_requests.find_by_employee_id_and_shift_id(self.id, shift.id)
     request && request.status == "pending"
-  
+
   end
 
   def overlap?(shift)

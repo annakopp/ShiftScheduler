@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131009201100) do
+ActiveRecord::Schema.define(:version => 20131011172538) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -31,11 +31,12 @@ ActiveRecord::Schema.define(:version => 20131009201100) do
   create_table "shifts", :force => true do |t|
     t.integer  "manager_id"
     t.string   "name"
-    t.integer  "slots"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "slots",      :default => 0
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.datetime "start_date"
     t.datetime "end_date"
+    t.integer  "max_slots"
   end
 
   create_table "users", :force => true do |t|

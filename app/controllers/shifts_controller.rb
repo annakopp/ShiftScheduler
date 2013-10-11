@@ -65,6 +65,17 @@ class ShiftsController < ApplicationController
 
   end
 
+
+  def destroy
+    if cannot? :destroys, current_user
+      redirect_to shifts_url
+    else
+      @shift = Shift.find(params[:id])
+      @shift.destroy
+      redirect_to shifts_url
+    end
+  end
+
   private
 
   def parse_date
@@ -72,9 +83,9 @@ class ShiftsController < ApplicationController
     new_start = params[:shift][:start_date] + " " + params[:time][:start_time]
     new_end = params[:shift][:end_date] + " " + params[:time][:end_time]
     params[:shift][:start_date] =
-                          DateTime.strptime(new_start,'%Y-%m-%d %H:%M')
+                          DateTime.strptime(new_start,'%Y/%m/%d %H:%M')
     params[:shift][:end_date] =
-                          DateTime.strptime(new_end, '%Y-%m-%d %H:%M')
+                          DateTime.strptime(new_end, '%Y/%m/%d %H:%M')
   end
 
 end

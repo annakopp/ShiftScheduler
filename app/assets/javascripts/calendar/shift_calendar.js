@@ -28,6 +28,8 @@ $(document).ready(function() {
       $(".new-shift-form #start-date").val(year+"/"+month+"/"+day);
       $(".new-shift-form #end-date").val(year+"/"+month+"/"+day)
       console.log(date)
+
+      //if in week or day view, also add the time.
     }
 
   });

@@ -1,10 +1,18 @@
 
   <header class="shift-details-header">
-    <h2><%= @shift.name %></h2>
+    <h2>
+        <%= @shift.name %>
+        <% if current_user.id == @shift.manager_id %>
+          <%= button_to "Delete",
+                         shift_url(@shift.id),
+                         method: :delete %>
+        <% end %>
+    </h2>
   </header>
 
   <div class="shift-info">
     <ul>
+      <li>Slots: <%= @shift.slots %>/<%= @shift.max_slots %></li>
       <li>Start: <%= @shift.start_date %></li>
       <li>End: <%= @shift.end_date %></li>
     </ul>
@@ -17,7 +25,12 @@
       <% @shift.shift_requests.each do |shift_request| %>
         <% next if shift_request.status !="approved" %>
         <li>
-
+          <% if current_user.admin? %>
+             <%= button_to "Remove",
+                            shift_request_url(shift_request.id),
+                            method: "put",
+                            status: "pending" %>
+          <% end %>
           <%= shift_request.employee.first_name %>
           <%= shift_request.employee.last_name %>
         </li>

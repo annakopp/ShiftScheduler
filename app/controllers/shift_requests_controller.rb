@@ -33,10 +33,10 @@ class ShiftRequestsController < ApplicationController
     @shift_request = ShiftRequest.find(params[:id])
     if @shift_request.update_attributes(status: params[:status])
       @shift_request.shift.decrement_slots
-      redirect_to shift_requests_url
+      redirect_to shifts_url
     else
       render[:errors] = @shift_request.errors.full_messages
-      redirect_to shift_requests_url
+      redirect_to shifts_url
     end
 
   end

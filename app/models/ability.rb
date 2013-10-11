@@ -7,9 +7,12 @@ class Ability
     if user.user_type == "admin"
       can :manage, User, manager_id: user.id
       can :add_employees, User
+      can :manage, Shift, manager_id: user.id
     else
       can :read, User, id: user.id
       can :edit, User, id: user.id
+
+      can :read, Shift, id: user.id
     end
 
     # if user.id == current_user.id
