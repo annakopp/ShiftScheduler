@@ -1,3 +1,40 @@
 // Place all the styles related to the Shifts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.add-shift {
+  background-color: white;
+  font-size: 12px;
+  width: 320px;
+  float: left;
+  padding: 10px;
+  margin: 0 10px;
+  border-radius: 10px;
+
+}
+
+.add-shift h2{
+  font-size: 16px;
+}
+
+.shift-details {
+  padding: 10px;
+  margin: 10px;
+  background-color: white;
+  float:left;
+  border-radius: 10px;
+
+}
+
+.shift-details > header{
+  font-size: 16px;
+}
+
+.shift-details > .shift-info{
+  font-size: 12px;
+}
+
+.scheduled-employees, .pending-employees {
+  padding: 10px 0;
+}

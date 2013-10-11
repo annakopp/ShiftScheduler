@@ -22,6 +22,11 @@ $(document).ready(function() {
 
     },
     dayClick: function(date) {
+      var year = String(date.getFullYear());
+      var day = String(date.getDate());
+      var month = String(date.getMonth()+1);
+      $(".new-shift-form #start-date").val(year+"/"+month+"/"+day);
+      $(".new-shift-form #end-date").val(year+"/"+month+"/"+day)
       console.log(date)
     }
 

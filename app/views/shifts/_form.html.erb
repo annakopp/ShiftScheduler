@@ -1,3 +1,4 @@
+<h2> Add a Shift</h2>
 <form class="new-shift-form" action="<%= shifts_url %>" method="post">
   <input
      name="authenticity_token"
@@ -12,7 +13,7 @@
   <br>
 
   <label>Start Date
-  <input type="date" name="shift[start_date]" >
+  <input type="text" id="start-date" name="shift[start_date]">
   </label>
 
   <label>Start Time
@@ -22,7 +23,7 @@
 
 
   <label>End Date
-  <input type="date" name="shift[end_date]" >
+  <input type="text" id="end-date" name="shift[end_date]" >
   </label>
 
   <label>End Time
@@ -44,7 +45,7 @@
           <option value = "28">Month</option>
         </select>
         <label>for
-        <input name="times" value=""></label><br>
+        <input name="times" value="" size="5"> times </label><br>
 
 
   <input type="submit" value="Add Shift">

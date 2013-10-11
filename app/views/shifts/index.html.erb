@@ -1,11 +1,14 @@
-<% if current_user.admin? %>
+<div id="calendar"></div>
 
-  <%=  render partial: "form" %>
 
-<% end %>
 
 <div class="shifts group">
-  <div id="calendar"></div>
+
+  <% if current_user.admin? %>
+  <div class="add-shift">
+    <%=  render partial: "form" %>
+  </div>
+  <% end %>
 
   <div class="shift-details"></div>
 

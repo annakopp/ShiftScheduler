@@ -4,14 +4,14 @@
 
 .main-nav {
 	float: left;
-  
+
 }
 
 .main-nav  > ul > li{
 	float: left;
 
 
-  
+
 }
 
 .main-nav  > ul > li > a{
@@ -19,19 +19,19 @@
 	padding: 10px;
 	border-right: 1px solid black;
 
-  
+
 }
 
 
 .main-nav  > ul{
-  
+
 }
 
 
 
 .main-nav  > ul > li:hover{
 	background-color: #A690D4;
-  
+
 }
 
 .main-nav  > ul > li > a{
@@ -39,6 +39,35 @@
 	text-transform: uppercase;
 	color: white;
 	font-size: 14px;
-	
-  
+
+
+}
+
+.employee-list {
+  margin: auto;
+  margin-top: 5%;
+  width: 600px;
+  padding: 40px;
+  background: white;
+}
+
+.employee-list > table{
+  border-collapse: collapse;
+}
+
+.employee-list th {
+  border-bottom: solid 5px black;
+  padding: 5px;
+  text-align: left;
+}
+
+.employee-list td {
+  padding: 5px;
+  text-align: left;
+}
+
+
+
+.employee-info-row:hover{
+  background-color: #669999;
 }

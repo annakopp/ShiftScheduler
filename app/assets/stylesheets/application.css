@@ -14,7 +14,7 @@
  *= require_tree .
  */
 
-body, div, ul, li {
+body, div, ul, li, h1, h2, h3 {
   padding: 0;
   margin: 0;
   border: 0;
@@ -39,7 +39,7 @@ ul {
 
 }
 
-header {
+.header {
 	width: auto;
 	background-color: #2C84CC;
 	border-bottom: solid 10px black;
@@ -53,7 +53,7 @@ header {
 }
 
 .dashboard ul {
-  
+
 }
 
 .dashboard ul li{
@@ -76,6 +76,8 @@ header {
 
 .main-content{
   margin:auto;
+  width: 1000px;
+  padding: 10px;
 
 }
 
@@ -88,11 +90,26 @@ header {
 }
 
 #calendar {
+  padding: 10px;
   width: 600px;
   float: left;
   background: white;
+  border-radius: 10px;
 }
 
-.shift-details {
-  float:right;
+#calendar .fc-button {
+  background-color: white;
+  text-transform: uppercase;
+  font-size: 12px;
+  border: 0;
+}
+
+
+#calendar .fc-content {
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+#calendar .fc-today {
+  background-color: #B4CDD5;
 }

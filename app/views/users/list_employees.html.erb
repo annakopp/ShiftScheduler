@@ -1,4 +1,21 @@
-<ul><% @employees.each do |employee| %>
-  <li><%= employee.first_name %> <%= employee.last_name %> | <%= employee.account_status %></li>
-  <%end %>
-<ul>
+<div class="employee-list">
+  <table>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Account Status</th>
+      <th>Schedule</th>
+    </tr>
+    <% @employees.each do |employee| %>
+    <% next if employee.id == current_user.id %>
+      <tr class="employee-info-row">
+          <td><%= employee.first_name %></td>
+          <td><%= employee.last_name %></td>
+          <td><%= employee.email %></td>
+          <td><%= employee.account_status %></td>
+          <td>TBD</td>
+      </tr>
+    <%end %>
+  </table>
+</div>
