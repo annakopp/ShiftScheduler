@@ -3,7 +3,7 @@ class Shift < ActiveRecord::Base
 
   validates_presence_of :end_date, :manager_id, :name, :slots, :start_date
 
-  validates_uniqueness_of :name, scope: [:manager_id]
+  #validates_uniqueness_of :name, scope: [:manager_id]
 
   belongs_to :manager,
   class_name: "Manager",

@@ -49,7 +49,6 @@ class User < ActiveRecord::Base
   end
 
 
-
   def self.find_by_credentials(email, password)
     user = User.find_by_email(email)
 
@@ -83,8 +82,11 @@ class User < ActiveRecord::Base
   end
 
   def can_request?(shift)
-    shift.slots > 0 && !self.shift_requests.find_by_employee_id_and_shift_id(self.id, shift.id)
+    return false if shift.slots < 1
+    return false if overlap?(shift)
+    !self.shift_requests.find_by_employee_id_and_shift_id(self.id, shift.id)
   end
+
 
   def can_cancel?(shift)
     request = self.shift_requests.find_by_employee_id_and_shift_id(self.id, shift.id)
@@ -96,4 +98,13 @@ class User < ActiveRecord::Base
   def ensure_session_token
     self.session_token ||= self.class.generate_session_token
   end
+
+  def overlap?(shift)
+    working_shifts.each do |working_shift|
+      return true if shift.end_date > working_shift.start_date && working_shift.end_date > shift.start_date
+    end
+
+  end
+
+
 end

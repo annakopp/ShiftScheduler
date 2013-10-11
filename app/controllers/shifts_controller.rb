@@ -18,14 +18,39 @@ class ShiftsController < ApplicationController
   def create
     parse_date
 
-    @shift = Shift.new(params[:shift])
-    if @shift.save
+    repeats = params[:times].to_i
+    @shifts = []
+    begin
+      if params[:recurring] == "on"
+        repeats.times do
+          @shifts << Shift.new(params[:shift])
+          params[:shift][:start_date] += params[:repeat_frequency].to_i.days
+          params[:shift][:end_date] += params[:repeat_frequency].to_i.days
+          p params[:shift]
 
+        end
+      else
+        @shifts << Shift.new(params[:shift])
+      end
+
+      ActiveRecord::Base.transaction do
+        @shifts.each{|shift| shift.save}
+        raise "error" if !@shifts.all?{|shift| shift.valid?}
+      end
+    rescue
+      flash[:errors] = ["ahh"]
       redirect_to shifts_url
     else
-      flash[:errors] = @shift.errors.full_messages
       redirect_to shifts_url
     end
+    # @shift = Shift.new(params[:shift])
+ #    if @shift.save
+ #
+ #      redirect_to shifts_url
+ #    else
+ #      flash[:errors] = @shift.errors.full_messages
+ #      redirect_to shifts_url
+ #    end
   end
 
 
