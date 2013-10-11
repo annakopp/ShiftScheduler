@@ -1,0 +1,52 @@
+
+  <header class="shift-details-header">
+    <h2><%= @shift.name %></h2>
+  </header>
+
+  <div class="shift-info">
+    <ul>
+      <li>Start: <%= @shift.start_date %></li>
+      <li>End: <%= @shift.end_date %></li>
+    </ul>
+  </div>
+
+  <div class="shift-requests">
+
+    <ul class="scheduled-employees">
+      <h3>Employees Scheduled to Work</h3>
+      <% @shift.shift_requests.each do |shift_request| %>
+        <% next if shift_request.status !="approved" %>
+        <li>
+
+          <%= shift_request.employee.first_name %>
+          <%= shift_request.employee.last_name %>
+        </li>
+      <%end %>
+    </ul>
+
+    <ul class="pending-employees">
+      <h3>Employees Requesting to Work</h3>
+      <% @shift.shift_requests.each do |shift_request| %>
+        <% next if shift_request.status !="pending" %>
+        <li>
+          <% if current_user.admin? %>
+            <%= render partial: "shift_requests/approve_deny",
+                       object: shift_request %>
+          <% end %>
+
+          <%= shift_request.employee.first_name %>
+          <%= shift_request.employee.last_name %>
+        </li>
+      <%end %>
+    </ul>
+  </div>
+
+  <% if !current_user.admin? && current_user.can_request?(@shift)%>
+    <%= button_to "Request this shift", shift_shift_request_url(@shift.id) %>
+  <%end %>
+
+  <% if !current_user.admin? && current_user.can_cancel?(@shift)%>
+    <%= button_to "Cancel Request",
+               shift_shift_request_url(@shift.id),
+               method: :delete %>
+  <% end %>

@@ -1,0 +1,78 @@
+<form class="new-shift-form" action="<%= shifts_url %>" method="post">
+  <input
+     name="authenticity_token"
+     type="hidden"
+     value="<%= form_authenticity_token %>">
+
+
+
+  <label>Shift Name
+  <input type="text" name="shift[name]">
+  </label>
+  <br>
+
+  <label>Start Date
+  <input type="date" name="shift[start_date]" >
+  </label>
+
+  <label>Start Time
+  <input type="time" name="time[start_time]" >
+  </label>
+  <br>
+
+
+  <label>End Date
+  <input type="date" name="shift[end_date]" >
+  </label>
+
+  <label>End Time
+  <input type="time" name="time[end_time]" >
+  </label>
+  <br>
+
+  <label>Number of Open Slots
+  <input type="text" name="shift[slots]" >
+  </label>
+  <br>
+
+  <label for = "recurring">Recurring </label>
+    <input type="checkbox" name="recurring" id="recurring"  val="yes"/>
+        Repeat every
+        <select name = "repeat_frequency" id = "repeat_frequency">
+          <option value ="1">Day</option>
+          <option value="7" selected="selected">Week</option>
+          <option value = "28">Month</option>
+        </select>
+        <label>for
+        <input name="times" value=""></label><br>
+
+
+  <input type="submit" value="Add Shift">
+</form>
+
+<script>
+$(document).ready(function() {
+  $(".new-shift-form").on("submit", function(event) {
+
+    event.preventDefault();
+    var $form = $(this);
+    console.log(event);
+    $.ajax({
+      type: "POST",
+      url: "<%= shifts_url %>",
+      data: $form.serialize(),
+      dataType: "json",
+      success: function(response){
+        console.log(response);
+        $("#calendar").fullCalendar( 'refetchEvents' );
+      },
+      error: function(response){
+        console.log("ahhh");
+      }
+    })
+
+
+  });
+
+});
+</script>

@@ -1,0 +1,6 @@
+  <%=button_to "Approve",
+               shift_request_url(approve_deny.id, status: "approved"),
+               method: :put %>
+  <%=button_to "Deny",
+                shift_request_url(approve_deny.id, status: "denied"),
+                method: :put %>

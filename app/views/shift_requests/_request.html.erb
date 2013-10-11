@@ -1,0 +1,16 @@
+<form action="<%= shift_requests_url %>" method="post">
+  <input type="hidden"
+          name="authenticity_token"
+          value="<%= form_authenticity_token %>">
+
+  <% @shift_requests.each do |shift| %>
+    <label>
+      <input type="checkbox"
+             name="shift_requests[]"
+             value="<%= shift.id %>">
+    <%= shift.name %>
+    </label><br>
+  <%end %>
+
+  <input type="submit" value="Request Shifts">
+</form>
