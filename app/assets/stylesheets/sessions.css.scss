@@ -7,10 +7,11 @@
   margin-right: auto;
   margin-top: 10%;
   width: 300px;
-  border: 5px solid black;
-  background-color: white;
+ 
   padding: 20px;
   border-radius: 10px;
+  background-color:rgba(247, 247, 247, 0.5);
+  box-shadow: 3px 3px 3px 3px #ccc;
 }
 
 .log-in > a {
@@ -18,4 +19,8 @@
   color: blue;
   font-size: 12px;
   text-transform: uppercase;
+}
+
+.log-in > div {
+	position: absolute;
 }
