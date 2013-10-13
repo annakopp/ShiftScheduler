@@ -1,15 +1,15 @@
-<div id="calendar"></div>
+<div id="calendar" class="transparent-box"></div>
 
 
 
 <div class="shifts group">
 
   <% if current_user.admin? %>
-  <div class="add-shift">
+  <div class="add-shift transparent-box">
     <%=  render partial: "form" %>
   </div>
   <% end %>
 
-  <div class="shift-details"></div>
+  <div class="shift-details transparent-box"></div>
 
 </div>

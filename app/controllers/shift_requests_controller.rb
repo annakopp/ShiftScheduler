@@ -31,7 +31,7 @@ class ShiftRequestsController < ApplicationController
 
   def update
     @shift_request = ShiftRequest.includes(:shift).find(params[:id])
-    # @shift = @shift_request.shift
+    @shift = @shift_request.shift
     if @shift_request.update_attributes(status: params[:status])
       @shift.decrement_slots
       # if @shift.slots == @shift.max_slots

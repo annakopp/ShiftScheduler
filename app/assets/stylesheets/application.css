@@ -31,6 +31,13 @@ ul {
   list-style: none;
 }
 
+.transparent-box {
+   background-color:rgba(247, 247, 247, 0.7);
+   box-shadow: 3px 3px 3px 3px #ccc;
+   border-radius: 10px;
+}
+
+
 .error{
 
 }
@@ -38,7 +45,7 @@ ul {
 .notice{
 
 }
-/*#2C84CC*/
+
 .header {
 	width: auto;
 	background-color: #7C8585;
@@ -94,8 +101,7 @@ ul {
   padding: 10px;
   width: 600px;
   float: left;
-  background: white;
-  border-radius: 10px;
+
 }
 
 #calendar .fc-button {
