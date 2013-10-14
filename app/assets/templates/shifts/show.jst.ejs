@@ -1,0 +1,16 @@
+
+<header class="shift-details-header">
+  <h2>
+      <%= shift.get("name") %>
+  </h2>
+</header>
+
+<div class="shift-info">
+  <ul>
+    <li>Slots: <%= shift.get("slots") %>/<%= shift.get("max_slots") %></li>
+    <li>Start: <%= shift.get("start") %></li>
+    <li>End: <%= shift.get("end") %></li>
+  </ul>
+</div>
+
+

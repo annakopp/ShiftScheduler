@@ -1,9 +1,5 @@
 class ShiftsController < ApplicationController
   before_filter :require_current_user!
-  # def new
-  #   @shift = Shift.new(params[:shift])
-  #   render :new
-  # end
 
   def show
     @shift =
@@ -48,7 +44,6 @@ class ShiftsController < ApplicationController
 
   def index
     @shifts = current_user.manager.created_shifts.includes(:shift_requests)
-    #@shift_requests = current_user.manager.created_shifts.where("id NOT IN (SELECT shift_id FROM shift_requests)")
     @current_user = current_user
     @shifts.each do|shift|
       shift.requested = shift.request_status(@current_user)

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $("#calendar").fullCalendar({
+  $("#calendar-old").fullCalendar({
     defaultView: "month",
     header: {
       left: "title",

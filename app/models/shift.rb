@@ -35,7 +35,8 @@ class Shift < ActiveRecord::Base
              slots: slots,
              id: id,
              allDay: false,
-             className: requested
+             className: requested,
+             max_slots: max_slots,
            }
     json
   end

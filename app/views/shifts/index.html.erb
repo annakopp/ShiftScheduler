@@ -1,21 +1,9 @@
-<div class="calendar-stuff transparent-box">
-  <ul>
-    <li>View All</li>
-    <li>View Current Schedule</li>
-  </ul>
-  <div id="calendar" ></div>
+<div id="shift-index-view">
+  <section id="calendar" class="transparent-box"></section>
 </div>
 
-
-
-<div class="shifts group">
-
-  <% if current_user.admin? %>
-  <div class="add-shift transparent-box">
-    <%=  render partial: "form" %>
-  </div>
-  <% end %>
-
-  <div class="shift-details transparent-box"></div>
-
-</div>
+<script>
+$(document).ready(function(){
+  window.ShiftScheduler.initialize();
+});
+</script>
