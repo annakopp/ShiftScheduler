@@ -1,5 +1,6 @@
 class Shift < ActiveRecord::Base
   attr_accessible :end_date, :manager_id, :name, :slots, :start_date, :max_slots
+  attr_accessor :requested
 
   validates_presence_of :end_date, :manager_id, :name, :max_slots, :start_date
 
@@ -53,7 +54,7 @@ class Shift < ActiveRecord::Base
     if user.admin?
       return self.available? ? "available" : "full"
     else
-      req = self.shift_requests.find_by_employee_id(user.id)
+      req = self.shift_requests.select{|req| req.employee_id == user.id}.first
       if req
         return req.status
       else
