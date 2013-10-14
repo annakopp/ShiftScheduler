@@ -1,5 +1,5 @@
 <section class="log-in transparent-box">
-	<h1>Sign In</h1>
+	<h1>Log In</h1>
 
 	<form action="<%= session_url %>" method="post">
 	  <input
@@ -7,14 +7,14 @@
 	     type="hidden"
 	     value="<%= form_authenticity_token %>">
 
-	  <label for="user_username">Email</label>
+	  <label for="user_username">Email</label><br>
 	  <input
 	     id="user_username"
 	     name="user[email]"
 	     type="text">
 	  <br>
 
-	  <label for="user_password">Password</label>
+	  <label for="user_password">Password</label><br>
 	  <input
 	     id="user_password"
 	     name="user[password]"

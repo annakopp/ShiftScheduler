@@ -34,16 +34,16 @@ class Shift < ActiveRecord::Base
              slots: slots,
              id: id,
              allDay: false,
-             backgroundColor: self.max_slots > self.slots  ? "green" : "red",
-             className: "pending"
+             #backgroundColor: self.max_slots > self.slots  ? "green" : "red",
+             className: requested
            }
     json
   end
 
   def requested?(user)
-    !!self.employees.find(user)
+    return false if user.admin?
+    !!self.employees.find_by_id(user.id)
   end
-
 
   def start_date_after_end_date
     if self.start_date < self.end_date

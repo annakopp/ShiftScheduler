@@ -36,3 +36,25 @@
 .scheduled-employees, .pending-employees {
   padding: 10px 0;
 }
+
+//event colors
+
+.pending {
+	background-color: blue;
+}
+
+.full {
+	background-color: red;
+}
+
+.available {
+	background-color: #3a87ad;
+}
+
+.denied {
+	background-color: red;
+}
+
+.accepted {
+	background-color: green;
+}

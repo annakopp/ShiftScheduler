@@ -34,13 +34,14 @@ class ShiftRequestsController < ApplicationController
     @shift = @shift_request.shift
     if @shift_request.update_attributes(status: params[:status])
       @shift.decrement_slots
-      # if @shift.slots == @shift.max_slots
-#         reqs = @shift.shift_requests.select{|request| request.status=="pending"}
-#         reqs.each do |req|
-#
-#           req.status = "denied"
-#         end
-#       end
+      if @shift.slots == @shift.max_slots
+        reqs = @shift.shift_requests.select{|request| request.status=="pending"}
+        reqs.each do |req|
+      
+          req.status = "denied"
+          req.save
+        end
+      end
       redirect_to shifts_url
     else
       render[:errors] = @shift_request.errors.full_messages

@@ -18,6 +18,11 @@
   text-transform: uppercase;
 }
 
-.log-in > div {
-	position: absolute;
+.log-in > form > input {
+	font-size: 20px;
+	width: 280px;
+	border-radius: 10px;
+	border: 1px solid white;
+	outline: none;
+	
 }

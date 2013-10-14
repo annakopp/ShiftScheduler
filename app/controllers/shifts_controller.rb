@@ -55,9 +55,20 @@ class ShiftsController < ApplicationController
 
 
   def index
-    @shifts = current_user.manager.created_shifts
-    @shift_requests = current_user.manager.created_shifts.where("id NOT IN (SELECT shift_id FROM shift_requests)")
-
+    @shifts = current_user.manager.created_shifts.includes(:shift_requets)
+    #@shift_requests = current_user.manager.created_shifts.where("id NOT IN (SELECT shift_id FROM shift_requests)")
+    
+    @shifts.each do|shift|
+      if shift.requested?(current_user)
+        shift[:requested]="pending"
+      elsif shift.slots >= shift.max_slots
+        shift[:requested]="full"
+      elsif shift.shift_requests
+        shift[:requested]="available"
+      end
+    end
+    
+    
     respond_to do |format|
       format.html {render :index}
       format.json {render json: @shifts }
