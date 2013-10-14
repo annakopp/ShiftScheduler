@@ -43,32 +43,18 @@ class ShiftsController < ApplicationController
     else
       redirect_to shifts_url
     end
-    # @shift = Shift.new(params[:shift])
- #    if @shift.save
- #
- #      redirect_to shifts_url
- #    else
- #      flash[:errors] = @shift.errors.full_messages
- #      redirect_to shifts_url
- #    end
   end
 
 
   def index
-    @shifts = current_user.manager.created_shifts.includes(:shift_requets)
+    @shifts = current_user.manager.created_shifts.includes(:shift_requests)
     #@shift_requests = current_user.manager.created_shifts.where("id NOT IN (SELECT shift_id FROM shift_requests)")
-    
+
     @shifts.each do|shift|
-      if shift.requested?(current_user)
-        shift[:requested]="pending"
-      elsif shift.slots >= shift.max_slots
-        shift[:requested]="full"
-      elsif shift.shift_requests
-        shift[:requested]="available"
-      end
+      shift[:requested] = shift.request_status(current_user)
     end
-    
-    
+
+
     respond_to do |format|
       format.html {render :index}
       format.json {render json: @shifts }

@@ -45,6 +45,27 @@ class Shift < ActiveRecord::Base
     !!self.employees.find_by_id(user.id)
   end
 
+
+  # if admin => full, available
+  # if employee => pending, approved, denied, available, full
+
+  def request_status(user)
+    if user.admin?
+      return self.available? ? "available" : "full"
+    else
+      req = self.shift_requests.find_by_employee_id(user.id)
+      if req
+        return req.status
+      else
+        return self.available? ? "available" : "full"
+      end
+    end
+  end
+
+  def available?
+    max_slots > slots
+  end
+
   def start_date_after_end_date
     if self.start_date < self.end_date
       errors.add(:start_date, "can't  be after end date")
