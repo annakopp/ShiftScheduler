@@ -84,7 +84,7 @@ ul {
 
 .main-content{
   margin:auto;
-  width: 1000px;
+/*  width: 1000px;*/
   padding: 10px;
 
 }
@@ -99,8 +99,8 @@ ul {
 
 #calendar {
   padding: 10px;
-  width: 600px;
-  float: left;
+  width: auto;
+/*  float: left;*/
 
 }
 

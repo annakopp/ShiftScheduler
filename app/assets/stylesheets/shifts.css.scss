@@ -58,3 +58,15 @@
 .approved {
 	background-color: green;
 }
+
+.calendar-stuff {
+
+}
+
+.calendar-stuff > ul {
+  float: left;
+}
+.calendar-stuff > ul > li {
+  float: left;
+  padding: 5px;
+}

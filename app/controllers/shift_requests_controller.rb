@@ -16,7 +16,7 @@ class ShiftRequestsController < ApplicationController
 
       respond_to do |format|
         format.html {render :index}
-        format.json {render json: @requests, include: :shift }
+        #format.json {render json: @requests, include: :shift }
       end
 
 
@@ -37,7 +37,7 @@ class ShiftRequestsController < ApplicationController
       if @shift.slots == @shift.max_slots
         reqs = @shift.shift_requests.select{|request| request.status=="pending"}
         reqs.each do |req|
-      
+
           req.status = "denied"
           req.save
         end

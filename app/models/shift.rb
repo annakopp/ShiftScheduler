@@ -35,7 +35,6 @@ class Shift < ActiveRecord::Base
              slots: slots,
              id: id,
              allDay: false,
-             #backgroundColor: self.max_slots > self.slots  ? "green" : "red",
              className: requested
            }
     json
