@@ -1,5 +1,5 @@
 class ShiftsController < ApplicationController
-
+  before_filter :require_current_user!
   # def new
   #   @shift = Shift.new(params[:shift])
   #   render :new

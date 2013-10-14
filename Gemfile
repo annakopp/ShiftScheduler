@@ -31,6 +31,8 @@ end
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
 gem 'jquery-rails'
+gem 'backbone-on-rails'
+
 gem 'devise'
 gem 'cancan'
 
