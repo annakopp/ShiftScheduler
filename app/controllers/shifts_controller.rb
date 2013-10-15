@@ -43,12 +43,11 @@ class ShiftsController < ApplicationController
 
 
   def index
-    @shifts = current_user.manager.created_shifts.includes(:shift_requests)
+    @shifts = current_user.manager.created_shifts.includes(:shift_requests).includes(:employees)
     @current_user = current_user
     @shifts.each do|shift|
       shift.requested = shift.request_status(@current_user)
     end
-
 
     respond_to do |format|
       format.html {render :index}

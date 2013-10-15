@@ -9,18 +9,11 @@ class ShiftRequestsController < ApplicationController
   end
 
   def index
-    if current_user.admin?
-      @requests = ShiftRequest.where(" status=? AND ? IN (SELECT manager_id FROM users)", "pending", current_user.id).includes(:shift).includes(:employee)
-    else
-      @requests = current_user.shift_requests.includes(:shift)
-
+      @requests = ShiftRequest.find_by_shift_id(params[:shift_id])
       respond_to do |format|
         format.html {render :index}
-        #format.json {render json: @requests, include: :shift }
+        format.json {render json: @requests }
       end
-
-
-    end
   end
 
   def destroy

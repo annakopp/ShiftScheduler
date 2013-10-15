@@ -37,6 +37,8 @@ class Shift < ActiveRecord::Base
              allDay: false,
              className: requested,
              max_slots: max_slots,
+             shift_requests: shift_requests,
+             employees: employees
            }
     json
   end

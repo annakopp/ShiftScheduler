@@ -48,6 +48,17 @@ class User < ActiveRecord::Base
     self.user_type == "admin"
   end
 
+  def as_json(options={})
+
+    json = { first_name: first_name,
+             last_name: last_name,
+             company_id: company_id,
+             manager_id: manager_id,
+             user_type: user_type,
+             account_status: account_status
+           }
+    json
+  end
 
   def self.find_by_credentials(email, password)
     user = User.find_by_email(email)

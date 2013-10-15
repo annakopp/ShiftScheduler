@@ -8,14 +8,15 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   },
 
   render: function() {
-    console.log(this.model);
+    var that = this;
     if(!this.model){
       this.$el.html("");
       return ;
     }
 
+    console.log(this.model.get("shift_requests").models)
     var renderedContent = this.template({
-      shift: this.model
+      shift: that.model
     });
 
     this.$el.html(renderedContent);

@@ -14,3 +14,37 @@
 </div>
 
 
+<div class="shift-requests">
+  <ul class="pending-employees">
+  <h3>Employees Scheduled to Work</h3>
+    <% _(shift.get("shift_requests").models).each(function(shift_request) { %>
+      <% if (shift_request.get("status") === "approved") {%>
+      <li>
+        <%= shift_request.get("employee")["first_name"] %>
+        <%= shift_request.get("employee")["last_name"] %>
+      </li>
+     <% }%>
+    <% });%>
+  </ul>
+
+
+  <ul class="pending-employees">
+  <h3>Employees Requesting to Work</h3>
+    <% _(shift.get("shift_requests").models).each(function(shift_request) { %>
+      <% if (shift_request.get("status") === "pending") {%>
+      <li>
+        <%= shift_request.get("employee")["first_name"] %>
+        <%= shift_request.get("employee")["last_name"] %>
+      </li>
+     <% }%>
+    <% });%>
+  </ul>
+
+
+
+
+  <ul class="pending-employees">
+  </ul>
+</div>
+
+

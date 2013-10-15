@@ -53,7 +53,7 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
     var that = this;
     var source = that.collection.toJSON();
     $("#calendar").fullCalendar( 'addEventSource', source );
-
+    console.log(source);
     this.shiftShowView = new ShiftScheduler.Views.ShiftShow({
       model: that.collection.at(0),
       parentView: this
