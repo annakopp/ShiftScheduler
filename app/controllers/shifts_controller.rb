@@ -12,30 +12,34 @@ class ShiftsController < ApplicationController
   end
 
   def create
-    parse_date
+    if can? :manage, current_user
+      parse_date
+    
+      repeats = params[:times].to_i
+      @shifts = []
+      begin
+        if params[:recurring] == "on"
+          repeats.times do
+            @shifts << Shift.new(params[:shift])
+            params[:shift][:start_date] += params[:repeat_frequency].to_i.days
+            params[:shift][:end_date] += params[:repeat_frequency].to_i.days
+            p params[:shift]
 
-    repeats = params[:times].to_i
-    @shifts = []
-    begin
-      if params[:recurring] == "on"
-        repeats.times do
+          end
+        else
           @shifts << Shift.new(params[:shift])
-          params[:shift][:start_date] += params[:repeat_frequency].to_i.days
-          params[:shift][:end_date] += params[:repeat_frequency].to_i.days
-          p params[:shift]
-
         end
-      else
-        @shifts << Shift.new(params[:shift])
-      end
 
-      ActiveRecord::Base.transaction do
-        @shifts.each{|shift| shift.save}
-        raise "error" if !@shifts.all?{|shift| shift.valid?}
+        ActiveRecord::Base.transaction do
+          @shifts.each{|shift| shift.save}
+          raise "error" if !@shifts.all?{|shift| shift.valid?}
+        end
+      rescue
+        flash[:errors] = ["ahh"]
+        redirect_to shifts_url
+      else
+        redirect_to shifts_url
       end
-    rescue
-      flash[:errors] = ["ahh"]
-      redirect_to shifts_url
     else
       redirect_to shifts_url
     end
@@ -43,6 +47,7 @@ class ShiftsController < ApplicationController
 
 
   def index
+    @js_abilities = ability_to_array(current_ability)
     @shifts = current_user.manager.created_shifts.includes(:shift_requests).includes(:employees)
     @current_user = current_user
     @shifts.each do|shift|

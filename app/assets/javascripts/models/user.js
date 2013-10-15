@@ -1,3 +1,6 @@
-ShiftScheduler.Models.User = Backbone.Model.extend({
-
-});
+ShiftScheduler.Models.User = Backbone.Model.extend(
+{},
+{
+	backboneClass: "User"
+}
+);

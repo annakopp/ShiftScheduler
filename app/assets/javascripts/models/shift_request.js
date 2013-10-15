@@ -1,3 +1,6 @@
-ShiftScheduler.Models.ShiftRequest = Backbone.Model.extend({
-
-});
+ShiftScheduler.Models.ShiftRequest = Backbone.Model.extend(
+	{},
+	{
+		backboneClass: "ShiftRequest"
+	}
+);

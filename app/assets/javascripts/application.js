@@ -16,6 +16,7 @@
 //= require fullcalendar
 //= require underscore
 //= require backbone
+//= require cancan-backbone
 //= require shift_scheduler
 //= require_tree ../templates
 //= require_tree ./models
