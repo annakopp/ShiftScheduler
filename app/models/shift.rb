@@ -1,6 +1,6 @@
 class Shift < ActiveRecord::Base
   attr_accessible :end_date, :manager_id, :name, :slots, :start_date, :max_slots
-  attr_accessor :requested
+  attr_accessor :requested, :can_request, :can_cancel
 
   validates_presence_of :end_date, :manager_id, :name, :max_slots, :start_date
 
@@ -37,6 +37,8 @@ class Shift < ActiveRecord::Base
              allDay: false,
              className: requested,
              max_slots: max_slots,
+             can_request: can_request,
+             can_cancel: can_cancel,
              shift_requests: shift_requests,
              employees: employees
            }
@@ -64,6 +66,28 @@ class Shift < ActiveRecord::Base
       end
     end
   end
+
+  def can_be_requested_by?(user)
+    return false if user.user_type == "admin"
+    return false unless available?
+    return false if overlap?(user)
+    !!shift_requests.select{|request| request.employee_id == user.id}
+  end
+
+
+  def can_be_cancelled_by?(user)
+    return false if user.user_type == "admin"
+    request = shift_requests.select{|request| request.employee_id == user.id}
+    request[0] && request[0].status == "pending"
+  end
+
+  def overlap?(user)
+    user.working_shifts.each do |working_shift|
+      return true if end_date >= working_shift.start_date && working_shift.end_date >= start_date
+    end
+    false
+  end
+
 
   def available?
     max_slots > slots

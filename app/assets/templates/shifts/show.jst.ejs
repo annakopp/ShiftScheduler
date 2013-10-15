@@ -20,7 +20,7 @@
     <% _(shift.get("shift_requests").models).each(function(shift_request) { %>
       <% if (shift_request.get("status") === "approved") {%>
       <li>
-        <% if (ability.can("manage", ShiftScheduler.Models.Shift)) { %>
+        <% if (ability.can("crud", ShiftScheduler.Models.Shift)) { %>
           <button class="remove-employee-button"
                   data-id="<%= shift_request.get('id') %>">
                   Remove
@@ -39,7 +39,7 @@
     <% _(shift.get("shift_requests").models).each(function(shift_request) { %>
       <% if (shift_request.get("status") === "pending") {%>
       <li>
-        <% if (ability.can("manage", ShiftScheduler.Models.Shift)) { %>
+        <% if (ability.can("crud", ShiftScheduler.Models.Shift)) { %>
           <button class="approve-employee-button"
                   data-id="<%= shift_request.get('id') %>">
                   Approve
@@ -59,4 +59,18 @@
 
 </div>
 
+<% if (shift.get("can_request")) {%>
 
+  <button class="request-shift-button"
+          data-id="<%= shift.get('id') %>">
+          Request
+  </button>
+<%}%>
+
+<% if (shift.get("can_cancel")) {%>
+
+  <button class="cancel-shift-button"
+          data-id="<%= shift.get('id') %>">
+          Cancel
+  </button>
+<%}%>

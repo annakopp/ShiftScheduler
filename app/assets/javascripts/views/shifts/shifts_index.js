@@ -29,7 +29,6 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
       eventClick: function(event, element) {
         var shiftModel = that.collection.get(event)
 
-        console.log(shiftModel)
         that.shiftShowView.model = shiftModel;
         that.shiftShowView.render();
 
@@ -53,12 +52,17 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
     var that = this;
     var source = that.collection.toJSON();
     $("#calendar").fullCalendar( 'addEventSource', source );
-    console.log(source);
     this.shiftShowView = new ShiftScheduler.Views.ShiftShow({
       model: that.collection.at(0),
       parentView: this
     })
+  },
 
+  reRender: function(shift) {
+    var that = this;
+      var source = that.collection.toJSON();
+      $('#calendar').fullCalendar('removeEvents');
+      $("#calendar").fullCalendar( 'addEventSource', source );
   }
 
 });

@@ -7,7 +7,6 @@
 
 <script>
 var ability = new Ability({rules : <%= @js_abilities.to_json.html_safe %>});
-console.log(ability.get("rules"));
 $(document).ready(function(){
   window.ShiftScheduler.initialize();
 });

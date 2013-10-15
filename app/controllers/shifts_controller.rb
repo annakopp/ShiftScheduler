@@ -14,7 +14,7 @@ class ShiftsController < ApplicationController
   def create
     if can? :manage, current_user
       parse_date
-    
+
       repeats = params[:times].to_i
       @shifts = []
       begin
@@ -47,13 +47,14 @@ class ShiftsController < ApplicationController
 
 
   def index
-    @js_abilities = ability_to_array(current_ability)
     @shifts = current_user.manager.created_shifts.includes(:shift_requests).includes(:employees)
+    @js_abilities = (ability_to_array(current_ability))
     @current_user = current_user
     @shifts.each do|shift|
       shift.requested = shift.request_status(@current_user)
+      shift.can_request = shift.can_be_requested_by?(@current_user)
+      shift.can_cancel = shift.can_be_cancelled_by?(@current_user)
     end
-
     respond_to do |format|
       format.html {render :index}
       format.json {render json: @shifts }
