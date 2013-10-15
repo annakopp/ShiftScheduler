@@ -6,8 +6,6 @@
 </header>
 
 <div class="shift-info">
-	<!-- why won'tyou work -->
-	<% console.log(ability.can("manage", "shift"));%>
   <ul>
     <li>Slots: <%= shift.get("slots") %>/<%= shift.get("max_slots") %></li>
     <li>Start: <%= shift.get("start") %></li>
@@ -22,6 +20,12 @@
     <% _(shift.get("shift_requests").models).each(function(shift_request) { %>
       <% if (shift_request.get("status") === "approved") {%>
       <li>
+        <% if (ability.can("manage", ShiftScheduler.Models.Shift)) { %>
+          <button class="remove-employee-button"
+                  data-id="<%= shift_request.get('id') %>">
+                  Remove
+          </button>
+        <%}%>
         <%= shift_request.get("employee")["first_name"] %>
         <%= shift_request.get("employee")["last_name"] %>
       </li>
@@ -35,6 +39,17 @@
     <% _(shift.get("shift_requests").models).each(function(shift_request) { %>
       <% if (shift_request.get("status") === "pending") {%>
       <li>
+        <% if (ability.can("manage", ShiftScheduler.Models.Shift)) { %>
+          <button class="approve-employee-button"
+                  data-id="<%= shift_request.get('id') %>">
+                  Approve
+          </button>
+          <button class="deny-employee-button"
+                  data-id="<%= shift_request.get('id') %>">
+                  Deny
+          </button>
+
+        <%}%>
         <%= shift_request.get("employee")["first_name"] %>
         <%= shift_request.get("employee")["last_name"] %>
       </li>
@@ -42,11 +57,6 @@
     <% });%>
   </ul>
 
-
-
-
-  <ul class="pending-employees">
-  </ul>
 </div>
 
 

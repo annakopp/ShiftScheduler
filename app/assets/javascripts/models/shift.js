@@ -3,7 +3,7 @@ ShiftScheduler.Models.Shift = Backbone.Model.extend(
   parse: function(response) {
     response["shift_requests"] =
     new  ShiftScheduler.Collections.ShiftRequests(response["shift_requests"], {
-      url: "/shifts/" + response["id"] + "/shift_requests/"
+      urlRoot: "/shifts/" + response["id"] + "/shift_requests"
     })
 
     response["employees"] =
@@ -13,6 +13,6 @@ ShiftScheduler.Models.Shift = Backbone.Model.extend(
   }
 },
 {
-	backboneClass:"Shift"
+	backboneClass:"ShiftScheduler.Models.Shift"
 }
 );

@@ -1,3 +1,3 @@
 ShiftScheduler.Collections.ShiftRequests = Backbone.Collection.extend({
-  model: ShiftScheduler.Models.ShiftRequest
+  model: ShiftScheduler.Models.ShiftRequest,
 })

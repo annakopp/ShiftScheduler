@@ -20,6 +20,7 @@ class ShiftRequest < ActiveRecord::Base
              employee_id: employee_id,
              shift_id: shift_id,
              status: status,
+             id: id,
              employee: employee
            }
     json

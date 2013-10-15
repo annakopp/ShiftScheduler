@@ -35,7 +35,7 @@ class ShiftRequestsController < ApplicationController
           req.save
         end
       end
-      redirect_to shifts_url
+      render json: @shift_request
     else
       render[:errors] = @shift_request.errors.full_messages
       redirect_to shifts_url
