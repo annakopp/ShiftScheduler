@@ -4,9 +4,7 @@ class Shift < ActiveRecord::Base
 
   validates_presence_of :end_date, :manager_id, :name, :max_slots, :start_date
 
-  #validates_uniqueness_of :name, scope: [:manager_id]
-
-  #validate :start_date_after_end_date, :on => [:create, :update]
+  validate :start_date_after_end_date, on: :create
 
   belongs_to :manager,
   class_name: "Manager",
@@ -22,7 +20,7 @@ class Shift < ActiveRecord::Base
   has_many :employees, through: :shift_requests, source: :employee
 
 
-  def decrement_slots
+  def count_slots
     self.slots = self.shift_requests.where(status: "approved").count
     self.save
   end
@@ -47,38 +45,27 @@ class Shift < ActiveRecord::Base
 
   def requested?(user)
     return false if user.admin?
-    !!self.employees.find_by_id(user.id)
+    !!self.employees.include?(user)
   end
 
 
-  # if admin => full, available
-  # if employee => pending, approved, denied, available, full
-
   def request_status(user)
-    if user.admin?
-      return self.available? ? "available" : "full"
-    else
-      req = self.shift_requests.select{|req| req.employee_id == user.id}.first
-      if req
-        return req.status
-      else
-        return self.available? ? "available" : "full"
-      end
-    end
+    return "full" unless available?
+    return "available" if user.admin?
+    req = self.shift_requests.select{|req| req.employee_id == user.id}.first  
+   
+    req ? req.status : "available"
   end
 
   def can_be_requested_by?(user)
-    return false if user.user_type == "admin"
-    return false unless available?
-    return false if overlap?(user)
-    !!shift_requests.select{|request| request.employee_id == user.id}
+    return false if user.admin? || manager_id != user.manager_id || overlap?(user) 
+    request_status(user) == "available"  
   end
 
 
   def can_be_cancelled_by?(user)
-    return false if user.user_type == "admin"
-    request = shift_requests.select{|request| request.employee_id == user.id}
-    request[0] && request[0].status == "pending"
+    return false if user.admin? || manager_id != user.manager_id
+    request_status(user) == "pending"
   end
 
   def overlap?(user)
@@ -88,14 +75,15 @@ class Shift < ActiveRecord::Base
     false
   end
 
-
+  private
+  
   def available?
     max_slots > slots
   end
 
   def start_date_after_end_date
-    if self.start_date < self.end_date
-      errors.add(:start_date, "can't  be after end date")
+    if self.start_date > self.end_date
+      errors.add(:start_date, "start date can't be after end date")
     end
   end
 

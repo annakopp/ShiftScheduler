@@ -29,7 +29,7 @@ class ShiftRequestsController < ApplicationController
     @shift_request = ShiftRequest.includes(:shift).find(params[:id])
     @shift = @shift_request.shift
     if @shift_request.update_attributes(status: params[:status])
-      @shift.decrement_slots
+      @shift.count_slots
       if @shift.slots == @shift.max_slots
         reqs = @shift.shift_requests.select{|request| request.status=="pending"}
         reqs.each do |req|
