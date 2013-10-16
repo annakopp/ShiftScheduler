@@ -6,6 +6,7 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
 
   initialize: function(){
     var that = this;
+	_.bindAll(this, 'select')
     this.listenTo(that.collection, 'reset', that.addAll);
 
     that.collection.fetch({
@@ -25,6 +26,9 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
         right:  'today prev,next'
       },
       height: 500,
+	  selectable: true,
+	  selectHelper: true,
+	  select: this.select,
       aspectRation: 1,
       eventClick: function(event, element) {
         var shiftModel = that.collection.get(event)
@@ -39,13 +43,21 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
         var month = String(date.getMonth()+1);
         $(".new-shift-form #start-date").val(year+"/"+month+"/"+day);
         $(".new-shift-form #end-date").val(year+"/"+month+"/"+day)
-        console.log(date)
 
       }
 
     });
 
     return this;
+  },
+  
+  select: function(startDate, endDate) {	 
+	  this.newShiftView = new ShiftScheduler.Views.ShiftNew({
+		  collection: this.collection,
+		  model: new ShiftScheduler.Models.Shift(
+			  {start: startDate, end: endDate}
+		  )
+	  });
   },
 
   addAll: function() {
