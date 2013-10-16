@@ -18,8 +18,8 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   },
 
   render: function() {
+	  
     var that = this;
-
     if(!this.model){
       this.$el.html("");
       return ;
@@ -34,37 +34,65 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   },
 
   removeEmployee: function(event) {
+	var that = this;
     event.preventDefault();
     var $target = $(event.target);
     var id = parseInt($target.attr("data-id"));
 
     var shift_request = this.model.get("shift_requests").findWhere({id: id})
     shift_request.set({status: "pending"});
-    shift_request.save();
-    this.render();
+    shift_request.save({},{
+		success: function(){
+          that.parentView.collection.fetch({
+            success: function(){
+              that.parentView.reRender();
+              that.render()
+            }
+          });
+        }
+	});
   },
 
   approveEmployee: function(event) {
-    event.preventDefault();
+    var that = this;
+	event.preventDefault();
     var $target = $(event.target);
     var id = parseInt($target.attr("data-id"));
-
+	
     var shift_request = this.model.get("shift_requests").findWhere({id: id})
     shift_request.set({status: "approved"});
-    shift_request.save();
-    this.render();
+    shift_request.save({},{
+		success: function(){
+          that.parentView.collection.fetch({
+            success: function(){
+              that.parentView.reRender();
+              that.render()
+            }
+          });
+        }
+	});
+    
 
   },
 
   denyEmployee: function(event) {
+	var that = this;
     event.preventDefault();
     var $target = $(event.target);
     var id = parseInt($target.attr("data-id"));
 
     var shift_request = this.model.get("shift_requests").findWhere({id: id})
     shift_request.set({status: "denied"});
-    shift_request.save();
-    this.render();
+    shift_request.save({},{
+		success: function(){
+          that.parentView.collection.fetch({
+            success: function(){
+              that.parentView.reRender();
+              that.render()
+            }
+          });
+        }
+	});
 
   },
 
@@ -80,7 +108,7 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
         success: function(){
           that.parentView.collection.fetch({
             success: function(){
-              that.parentView.reRender(that.model);
+              that.parentView.reRender();
               that.render()
             }
           });
@@ -92,26 +120,25 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   },
 
   cancelShift: function(event) {
+	event.preventDefault();
     var that = this;
-    event.preventDefault();
-    var $target = $(event.target);
-    var shiftId = $target.attr("data-id");
-     console.log("success dfdfgdf")
-    that.model.get("shift_requests").remove(this.model.get("shift_requests").findWhere({id: id}),
-      {
-        url: "/shifts/" + shiftId + "/shift_request",
-        success: function(){
-          // that.parentView.collection.fetch({
-//             success: function(){
-//               that.parentView.reRender(that.model);
-//               that.render()
-//             }
-//           });
+    
+ 	var shiftId = parseInt(this.model.get("id"))
+	var shift_req = this.model.get("shift_requests").findWhere({shift_id: shiftId, employee_id: currentUserId})
 
-        console.log("success")
-        }
-      }
-    );
+	that.model.get("shift_requests").sync("delete", shift_req, {
+	    success: function(){
+	      that.parentView.collection.fetch({
+	        success: function(){
+	          that.parentView.reRender();
+	          that.render()
+	        }
+	      });
+
+
+	    }
+	});
+
   }
 
 });

@@ -19,7 +19,10 @@ class ShiftRequestsController < ApplicationController
   def destroy
     @shift_request = ShiftRequest.find_by_employee_id_and_shift_id(current_user.id, params[:shift_id])
     @shift_request.destroy
-    redirect_to shifts_url
+    respond_to do |format|
+      format.html {render :index}
+      format.json {render json: @shift_request }
+    end
   end
 
   def update

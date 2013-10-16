@@ -17,7 +17,7 @@ ShiftScheduler::Application.routes.draw do
 
   resources :shifts, only: [:create, :destroy, :index, :show] do
     resource :shift_request, only: [:create, :destroy]
-    resources :shift_requests, only: [:index, :update]
+    resources :shift_requests, only: [:index, :update, :destroy]
   end
 
   resources :shift_requests, only: [:create, :index, :update, :destroy]
