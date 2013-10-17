@@ -36,14 +36,6 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
         that.shiftShowView.model = shiftModel;
         that.shiftShowView.render();
 
-      },
-      dayClick: function(date) {
-        var year = String(date.getFullYear());
-        var day = String(date.getDate());
-        var month = String(date.getMonth()+1);
-        $(".new-shift-form #start-date").val(year+"/"+month+"/"+day);
-        $(".new-shift-form #end-date").val(year+"/"+month+"/"+day)
-
       }
 
     });
@@ -51,12 +43,14 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
     return this;
   },
   
-  select: function(startDate, endDate) {	 
-	  this.newShiftView = new ShiftScheduler.Views.ShiftNew({
-		  parentView: this,
-		  startDate: startDate,
-		  endDate: endDate, 
-	  });
+  select: function(startDate, endDate) {
+	  if (ability.can("crud", ShiftScheduler.Models.Shift))	{ 
+		  this.newShiftView = new ShiftScheduler.Views.ShiftNew({
+			  parentView: this,
+			  startDate: startDate,
+			  endDate: endDate, 
+		  });
+	  };
   },
 
   addAll: function() {
