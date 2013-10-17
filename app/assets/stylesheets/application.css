@@ -48,9 +48,8 @@ ul {
 
 .header {
 	width: auto;
-	background-color: #7C8585;
-	border-bottom: solid 10px black;
-	border-top: solid 10px black;
+	margin: 10px;
+	border-radius: 10px;
 
 }
 

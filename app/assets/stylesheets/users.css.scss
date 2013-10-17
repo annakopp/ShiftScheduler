@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .main-nav {
-	float: left;
+	float: right;
 
 }
 
@@ -21,14 +21,16 @@
 	padding: 10px;
 	text-decoration: none;
 	text-transform: uppercase;
-	color: white;
+	color: #3a87ad;
 	font-size: 14px;
+	border-radius: 10px;
 
 }
 
 
 .main-nav  > ul > li> a:hover{
-	background-color: #7A9999;
+	background-color: #B4CDD5;
+	color: white;
 
 }
 
