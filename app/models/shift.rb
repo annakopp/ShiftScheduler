@@ -7,7 +7,7 @@ class Shift < ActiveRecord::Base
   validate :start_date_after_end_date, on: :create
 
   belongs_to :manager,
-  class_name: "Manager",
+  class_name: "User",
   primary_key: :id,
   foreign_key: :manager_id
 
