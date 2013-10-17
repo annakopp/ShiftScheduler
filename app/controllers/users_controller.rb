@@ -76,6 +76,7 @@ class UsersController < ApplicationController
   def create_employee
     params[:user][:manager_id] = current_user.id
     params[:user][:account_status] = "pending"
+    params[:user][:user_type] = "employee"
     @user = User.new(params[:user])
     @user.reset_password
     if @user.save

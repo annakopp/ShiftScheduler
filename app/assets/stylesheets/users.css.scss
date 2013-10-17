@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .main-nav {
-	float: right;
+	float: left;
 
 }
 
@@ -31,7 +31,72 @@
 .main-nav  > ul > li> a:hover{
 	background-color: #B4CDD5;
 	color: white;
+}
 
+.dashboard{
+	float: right;
+}
+
+.dashboard ul {
+	padding: 0 10px;
+}
+
+.dashboard ul li{
+  font-size: 11px;
+}
+
+.dashboard ul li input{
+	float: right;
+    background-color: #CCCCCC;
+	font-size: 12px;
+	border: 1px solid #C7C7C7;
+	outline: none;
+	border-radius: 7px;
+}
+
+.sign-up {
+	margin: auto;
+	padding: 10px;
+	width: 350px;
+}
+
+.sign-up > h1{
+	font-size: 24px;
+	padding-top: 10px;
+	text-align: center;
+}
+
+.sign-up > a{
+    text-decoration: none;
+    color: blue;
+}
+
+.sign-up > form{
+	margin: auto;
+	width: 300px;
+	font-size: 20px;
+	padding: 10px;
+}
+
+.sign-up > form > label{
+	padding: 10px 0 0 0;
+	display: block;
+}
+
+.sign-up > form input{
+	width: 300px;
+	font-size: 20px;
+	border-radius: 6px;
+	border: 1px solid white;
+	outline: none;
+}
+
+.sign-up > form input[type="submit"]{
+	width: 100px;
+    background-color: #CCCCCC;
+	font-size: 20px;
+	border: 1px solid #C7C7C7;
+	outline: none;
 }
 
 .employee-list {
@@ -41,6 +106,7 @@
   padding: 40px;
 
 }
+
 
 .employee-list > table{
   border-collapse: collapse;
@@ -56,7 +122,6 @@
   padding: 5px;
   text-align: left;
 }
-
 
 
 .employee-info-row:hover{

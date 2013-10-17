@@ -4,11 +4,7 @@ class ShiftsController < ApplicationController
   def show
     @shift =
         Shift.includes(:shift_requests).includes(:employees).find(params[:id])
-    if request.xhr?
-      render partial: "shifts/shift"
-    else
       render :show
-    end
   end
 
   def create

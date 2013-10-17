@@ -5,8 +5,13 @@ class User < ActiveRecord::Base
   validates :password_digest, :presence => { :message => "Password can't be blank" }
   validates :password, :length => { :minimum => 6, :allow_nil => true }
 
-  validates_uniqueness_of :email
-  validates :email, :presence => true
+  
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email,
+            presence: true,
+            format: { with: VALID_EMAIL_REGEX },
+            uniqueness: { case_sensitive: false }
+
   validates_presence_of :first_name, :last_name, :user_type, :account_status
 
   after_initialize :ensure_session_token

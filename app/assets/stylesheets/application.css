@@ -39,11 +39,12 @@ ul {
 
 
 .error{
-
+	color: #DB4074;
+	margin: auto;
 }
 
 .notice{
-
+	margin: auto;
 }
 
 .header {
@@ -51,28 +52,6 @@ ul {
 	margin: 10px;
 	border-radius: 10px;
 
-}
-
-
-.dashboard{
-	float: right;
-}
-
-.dashboard ul {
-
-}
-
-.dashboard ul li{
-  padding: 0px;
-  font-size: 12px;
-}
-
-.dashboard ul li input{
-	background-color: #7C8585;
-	font-size: 14px;
-	text-transform: uppercase;
-	border: 0;
-  padding: 0;
 }
 
 .group:after {
