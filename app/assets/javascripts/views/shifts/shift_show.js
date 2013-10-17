@@ -14,7 +14,8 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
     "click button.approve-employee-button": "approveEmployee",
     "click button.deny-employee-button": "denyEmployee",
     "click button.request-shift-button": "requestShift",
-    "click button.cancel-shift-button": "cancelShift"
+    "click button.cancel-shift-button": "cancelShift",
+	"click button.shift-delete-button": "deleteShift"
   },
 
   render: function() {
@@ -139,6 +140,26 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
 	    }
 	});
 
-  }
+  },
+  
+  deleteShift: function(event) {
+	event.preventDefault();
+    var that = this;
+    
+	
+	that.collection.sync("delete", that.model, {
+		success: function(){
+	      that.parentView.collection.fetch({
+	        success: function(){
+	          that.parentView.reRender();
+	          that.render()
+	        }
+	      });
+
+
+	    }
+	});
+
+  },
 
 });

@@ -37,7 +37,7 @@ class ShiftsController < ApplicationController
             flash[:errors] = ["ahh"]
             redirect_to shifts_url
           end
-          format.json {render status: 422}
+          format.json {render json: { :errors => @shifts[0].errors }, :status => 422 }
         end
       else
         redirect_to shifts_url
@@ -71,7 +71,10 @@ class ShiftsController < ApplicationController
     else
       @shift = Shift.find(params[:id])
       @shift.destroy
-      redirect_to shifts_url
+      respond_to do |format|
+        format.html {redirect_to shifts_url}
+        format.json {render json: @shift}
+      end
     end
   end
 
@@ -86,5 +89,6 @@ class ShiftsController < ApplicationController
     params[:shift][:end_date] =
                           DateTime.strptime(new_end, '%Y/%m/%d %H:%M')
   end
+
 
 end

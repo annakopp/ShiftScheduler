@@ -49,8 +49,8 @@ ShiftScheduler.Views.ShiftNew = Backbone.View.extend({
           	  	})
 			},
 			
-			error: function(response){
-				console.log("something went wrong");
+			error: function(data){	
+				console.log($.parseJSON(data));
 			}
 		});
 	},
