@@ -36,8 +36,13 @@ class ShiftsController < ApplicationController
           raise "error" if !@shifts.all?{|shift| shift.valid?}
         end
       rescue
-        flash[:errors] = ["ahh"]
-        redirect_to shifts_url
+        respond_to do |format|
+          format.html do 
+            flash[:errors] = ["ahh"]
+            redirect_to shifts_url
+          end
+          format.json {render status: 422}
+        end
       else
         redirect_to shifts_url
       end

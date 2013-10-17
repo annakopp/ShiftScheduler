@@ -53,10 +53,9 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
   
   select: function(startDate, endDate) {	 
 	  this.newShiftView = new ShiftScheduler.Views.ShiftNew({
-		  collection: this.collection,
-		  model: new ShiftScheduler.Models.Shift(
-			  {start: startDate, end: endDate}
-		  )
+		  parentView: this,
+		  startDate: startDate,
+		  endDate: endDate, 
 	  });
   },
 

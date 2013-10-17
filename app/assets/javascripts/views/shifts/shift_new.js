@@ -6,12 +6,15 @@ ShiftScheduler.Views.ShiftNew = Backbone.View.extend({
     initialize: function(){
 		_.bindAll(this, 'close', 'save');
       this.parentView = this.options["parentView"];
+	  this.startDate = this.options["startDate"];
+	  this.endDate = this.options["endDate"];
       this.render();
     },
 	
 	render: function() {		
 	    var renderedContent = this.template({
-	    	shift: this.model
+	    	startDate: this.parseDate(this.endDate),
+			endDate: this.parseDate(this.startDate)
 	    });
 		this.$el.html(renderedContent);
 		
@@ -29,8 +32,34 @@ ShiftScheduler.Views.ShiftNew = Backbone.View.extend({
 	},
 	
 	save: function() {
-		this.model.set({'title': $("#title").val(), 'slots': $("#slots").val()});
-		this.collection.create(this.model, {success: this.close});
+		var that = this;
+		var userData = $("form.new-shift-form").serializeJSON();
+		userData["shift"]["start_date"] = this.parseDate(this.startDate);
+		userData["shift"]["end_date"] = this.parseDate(this.endDate);
+		$.ajax({
+			url: "/shifts",
+			type: "POST",
+			data: userData,
+			success: function(){
+          	  	that.parentView.collection.fetch({
+            		success: function(){
+						that.close();
+              			that.parentView.reRender();
+            		}
+          	  	})
+			},
+			
+			error: function(response){
+				console.log("something went wrong");
+			}
+		});
+	},
+	
+	parseDate: function(date){
+        var year = String(date.getFullYear());
+        var day = String(date.getDate());
+        var month = String(date.getMonth()+1);
+		return (year+"/"+month+"/"+day);
 	}
 
 });

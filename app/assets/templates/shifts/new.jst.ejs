@@ -1,27 +1,18 @@
-start: <%= shift.get("start") %><br>
-end: <%= shift.get("end") %>
+start: <%= startDate %><br>
+end: <%= endDate %>
 
 <form class='new-shift-form'>
 
   <label>Shift Name
-  <input type="text" id="title" name="shift[title]">
+  <input type="text" id="title" name="shift[name]">
   </label>
   <br>
-
-  <label>Start Date
-  <input type="text" id="start-date" name="shift[start_date]">
-  </label>
 
   <label>Start Time
   <input type="time" id="start-time" name="time[start_time]" >
   </label>
   <br>
-
-
-  <label>End Date
-  <input type="text" id="end-date" name="shift[end_date]" >
-  </label>
-
+  
   <label>End Time
   <input type="time" id="end-time" name="time[end_time]" >
   </label>
