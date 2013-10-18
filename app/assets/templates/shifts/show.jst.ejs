@@ -3,9 +3,11 @@
   <h2>
       <%= shift.get("title") %> 
   </h2>
+  <% if (ability.can("crud", ShiftScheduler.Models.Shift)) { %>
   <button class="shift-delete-button">
       Delete
  </button>
+ <% }%>
 </header>
 
 <div class="shift-info">

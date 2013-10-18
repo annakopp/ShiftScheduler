@@ -6,10 +6,9 @@ ShiftScheduler::Application.routes.draw do
 
     post "create_employee", on: :member
 
-    put 'update_confirmed', on: :member
-    get 'confirm', to: 'users#confirm_user'
   end
-
+  put 'update_confirmed', to: 'users#update_confirmed'
+  get 'confirm', to: 'users#confirm_user'
   get "list_employees", to: "users#list_employees"
   get "add_employee", to: "users#add_employee"
 

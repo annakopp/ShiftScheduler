@@ -1,38 +1,44 @@
-start: <%= startDate %><br>
-end: <%= endDate %>
+<h2> Start: <%= startDate %> </h2>
+<h2> End: <%= endDate %> </h2>
 
 <form class='new-shift-form'>
+	
+	<label>Shift Name:
+		<input type="text" id="title" name="shift[name]">
+  	</label>
+  	<br>
 
-  <label>Shift Name
-  <input type="text" id="title" name="shift[name]">
-  </label>
-  <br>
-
-  <label>Start Time
-  <input type="time" id="start-time" name="time[start_time]" >
-  </label>
-  <br>
+  	<label>Start Time:
+  	  <input type="time" id="start-time" name="time[start_time]" >
+  	</label>
+  	<br>
   
-  <label>End Time
-  <input type="time" id="end-time" name="time[end_time]" >
-  </label>
-  <br>
+  	<label>End Time:
+ 	   <input type="time" id="end-time" name="time[end_time]" >
+  	</label>
+  	<br>
 
-  <label>Number of Open Slots
-  <input type="text" name="shift[max_slots]" >
-  </label>
-  <br>
+  	<label>Number of Open Slots:
+  	  <input type="text" id="slot-num" name="shift[max_slots]" >
+  	</label>
+  	<br>
 
-  <label for = "recurring">Recurring </label>
-    <input type="checkbox" name="recurring" id="recurring"  val="yes"/>
-        Repeat every
-        <select name = "repeat_frequency" id = "repeat_frequency">
-          <option value ="1">Day</option>
-          <option value="7" selected="selected">Week</option>
-          <option value = "28">Month</option>
-        </select>
-        <label>for
-        <input name="times" value="" size="5"> times </label><br>
+  	<label for = "recurring">Recurring? 
+    	<input type="checkbox" name="recurring" id="recurring"  val="yes"/>
+  	</label>
+  	<br>
+  
+  	<label>Repeat every
+    	<select name = "repeat_frequency" id = "repeat_frequency">
+	    	<option value ="1">Day</option>
+	      	<option value="7" selected="selected">Week</option>
+	      	<option value = "28">Month</option>
+    	</select>
+  	</label>
+	<br>
+	
+	<label>For
+	<input name="times" value="" size="5"> times </label><br>
 
 </form>
 

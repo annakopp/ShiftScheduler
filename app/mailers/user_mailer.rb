@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
 
   def confirmation_email(user)
     @user = user
-    @url = user_confirm_url(@user, host: 'shiftschedulerapp.herokuapp.com')
+    @url = confirm_url(code: @user.session_token, host: 'shiftschedulerapp.herokuapp.com')
 
     mail(to: @user.email, subject: "Finish your account registration!")
   end

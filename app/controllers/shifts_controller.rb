@@ -8,7 +8,6 @@ class ShiftsController < ApplicationController
   end
 
   def create
-    p params
     if can? :manage, current_user
       parse_date
 

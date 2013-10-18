@@ -96,21 +96,29 @@ class UsersController < ApplicationController
   end
 
   def confirm_user
-    @user = User.find(params[:user_id])
+    logout_current_user! if current_user
+    @user = User.find_by_session_token(params[:code]) || User.new(session_token: params[:code] )
     render :confirm_user
   end
 
   def update_confirmed
-    @user = User.find(params[:id])
-    if @user && @user.session_token == params[:code]
+    @user = User.find_by_session_token(params[:code])
+    if @user.nil?
+      flash[:errors] = ["User not found"]
+      redirect_to new_session_url
+    elsif @user.account_status == "pending" && @user && @user.session_token == params[:code]
       @user.account_status = "active"
       @user.password = params[:user][:password]
       @user.save
+      current_user = @user
       flash[:errors] = ["Please update your account information and change your password."]
       redirect_to edit_user_url(@user)
-    else
-      flash[:errors] = ["User not found"]
+    elsif @user.account_status != "pending"
+      flash[:errors] = ["User already registered"]
       redirect_to new_session_url
+    else
+      flash[:errors] = @user.errors.full_messages
+      redirect_to confirm_url(@user)
     end
   end
 

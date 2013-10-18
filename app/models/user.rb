@@ -1,10 +1,14 @@
 class User < ActiveRecord::Base
-  attr_accessible :company_id, :email, :first_name, :last_name, :manager_id, :password_digest, :session_token, :user_type, :password, :account_status
-  attr_reader :password
+  attr_accessible :company_id, :email, :first_name, 
+                  :last_name, :manager_id, :password_digest, 
+                  :session_token, :user_type, :password, 
+                  :password_confirmation, :account_status
+                  
+  attr_accessor :password, :password_confirmation
 
   validates :password_digest, :presence => { :message => "Password can't be blank" }
   validates :password, :length => { :minimum => 6, :allow_nil => true }
-
+  validates_confirmation_of :password
   
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email,

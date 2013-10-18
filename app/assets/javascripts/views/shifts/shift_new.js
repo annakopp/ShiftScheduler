@@ -20,7 +20,8 @@ ShiftScheduler.Views.ShiftNew = Backbone.View.extend({
 		
 		this.$el.dialog({
 			modal: true,
-			title: 'New Event',
+			width: 470,
+			title: 'Add Shift: ',
 			buttons: {'Save': this.save, 'Cancel': this.close}
 		});
 		
