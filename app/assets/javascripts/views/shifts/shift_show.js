@@ -29,11 +29,18 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
 	this.$el.dialog({
 		modal: true,
 		width: 470,
-		title: that.model.get("title"),
+		title: that.model.get("title")
 	});
 	
 	return this;
   },
+
+	// close: function() {
+	// 
+	// 	$('#shift-details').dialog('close');
+	// 	this.remove();
+	// 	this.add();
+	// },
 
   removeEmployee: function(event) {
 	var that = this;
@@ -48,7 +55,7 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
           that.parentView.collection.fetch({
             success: function(){
               that.parentView.reRender();
-              that.render()
+              that.render();
             }
           });
         }
@@ -68,7 +75,7 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
           that.parentView.collection.fetch({
             success: function(){
               that.parentView.reRender();
-              that.render()
+              that.render();
             }
           });
         }

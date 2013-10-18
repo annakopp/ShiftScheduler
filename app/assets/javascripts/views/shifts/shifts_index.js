@@ -25,11 +25,10 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
         center: "month, agendaWeek, agendaDay",
         right:  'today prev,next'
       },
-      height: 500,
 	  selectable: true,
 	  selectHelper: true,
 	  select: this.select,
-      aspectRation: 1,
+      aspectRatio: 2.5,
       eventClick: this.eventClick
 
     });
@@ -38,11 +37,8 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
   },
   
   eventClick: function(event, element) {
-
-        var shiftModel = this.collection.get(event)
-
 	    this.shiftShowView = new ShiftScheduler.Views.ShiftShow({
-	      model: shiftModel,
+	      model: this.collection.get(event),
 		  collection: this.collection,
 	      parentView: this
 	    });
