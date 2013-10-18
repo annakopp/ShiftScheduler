@@ -144,26 +144,19 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   },
   
   deleteShift: function(event) {
+	var that = this;
 	event.preventDefault();
-    var that = this;
+
+	that.collection.sync("delete", that.model);
+	
 	that.remove();
 	that.render();
 	
-	that.collection.sync("delete", that.model, {
-		success: function(){
-	      that.parentView.collection.fetch({
-	        success: function(){ 
-				$('#shift-details').dialog('close');
+	$('#shift-details').dialog('close');
 
-				that.parentView.reRender();
-	        }
-	      });
-
-
-	    }
-	});
-	
-
+	console.log(that.model.toJSON());
+	that.collection.remove(that.model);
+	that.parentView.reRender();
 
   },
 
