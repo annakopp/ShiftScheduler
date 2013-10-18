@@ -4,7 +4,6 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   template: JST['shifts/show'],
 
   initialize: function(){
-    var that = this;
     this.parentView = this.options["parentView"];
     this.render();
   },
@@ -19,19 +18,21 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   },
 
   render: function() {
-	  
     var that = this;
-    if(!this.model){
-      this.$el.html("");
-      return ;
-    }
 
     var renderedContent = this.template({
       shift: that.model
     });
 
     this.$el.html(renderedContent);
-    return this;
+
+	this.$el.dialog({
+		modal: true,
+		width: 470,
+		title: that.model.get("title"),
+	});
+	
+	return this;
   },
 
   removeEmployee: function(event) {
@@ -145,20 +146,24 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   deleteShift: function(event) {
 	event.preventDefault();
     var that = this;
-    
+	that.remove();
+	that.render();
 	
 	that.collection.sync("delete", that.model, {
 		success: function(){
 	      that.parentView.collection.fetch({
-	        success: function(){
-	          that.parentView.reRender();
-	          that.render()
+	        success: function(){ 
+				$('#shift-details').dialog('close');
+
+				that.parentView.reRender();
 	        }
 	      });
 
 
 	    }
 	});
+	
+
 
   },
 
