@@ -24,7 +24,9 @@
 	  <input type="submit" value="Log in">
 	</form>
 
+	Don't have an account? <%= link_to "Sign Up!", new_user_url %>	
+</section>
 
-	Don't have an account? <%= link_to "Sign Up!", new_user_url %>
-
+<section class="sign-up transparent-box">
+	<%= render partial: "sessions/guest" %>
 </section>
