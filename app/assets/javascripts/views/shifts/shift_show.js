@@ -4,6 +4,7 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   template: JST['shifts/show'],
 
   initialize: function(){
+	  console.log(this.model)
     this.parentView = this.options["parentView"];
     this.render();
   },
@@ -31,7 +32,7 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
 		width: 470,
 		title: that.model.get("title")
 	});
-	
+	console.log(this);
 	return this;
   },
 
@@ -135,12 +136,13 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
  	var shiftId = parseInt(this.model.get("id"))
 	var shift_req = this.model.get("shift_requests").findWhere({shift_id: shiftId, employee_id: currentUserId})
 
+	shift_req.set("status", "pending");
 	that.model.get("shift_requests").sync("delete", shift_req, {
 	    success: function(){
 	      that.parentView.collection.fetch({
 	        success: function(){
-	          that.parentView.reRender();
-	          that.render()
+	          that.parentView.reRender(that);
+			  that.render();
 	        }
 	      });
 
@@ -153,7 +155,6 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   deleteShift: function(event) {
 	var that = this;
 	event.preventDefault();
-
 	that.collection.sync("delete", that.model);
 	
 	that.remove();
@@ -161,9 +162,8 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
 	
 	$('#shift-details').dialog('close');
 
-	console.log(that.model.toJSON());
 	that.collection.remove(that.model);
-	that.parentView.reRender();
+	that.parentView.reRender(that);
 
   },
 
