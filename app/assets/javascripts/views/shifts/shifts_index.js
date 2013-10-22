@@ -37,13 +37,20 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
   },
   
   eventClick: function(event, element) {
-	  console.log(this.collection.get(event));
 	    this.shiftShowView = new ShiftScheduler.Views.ShiftShow({
 	      model: this.collection.get(event),
 		  collection: this.collection,
 	      parentView: this
 	    });
-
+		
+		this.$dialogEl = $("#shift-container");
+		console.log(this.shiftShowView.render().el)
+		this.$dialogEl.html(this.shiftShowView.render().el);
+		this.$dialogEl.dialog({
+			modal: true,
+			width: 470,
+			title: this.collection.get(event).get("title")
+		});
 
   },
   

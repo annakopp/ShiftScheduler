@@ -1,12 +1,9 @@
 ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
-  el: "#shift-details",
 
   template: JST['shifts/show'],
 
   initialize: function(){
-	  console.log(this.model)
     this.parentView = this.options["parentView"];
-    this.render();
   },
 
   events: {
@@ -19,29 +16,22 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   },
 
   render: function() {
+	 
     var that = this;
-
+		
     var renderedContent = this.template({
       shift: that.model
     });
-
     this.$el.html(renderedContent);
 
-	this.$el.dialog({
-		modal: true,
-		width: 470,
-		title: that.model.get("title")
-	});
-	console.log(this);
+	// this.$el.dialog({
+// 		modal: true,
+// 		width: 470,
+// 		title: that.model.get("title")
+// 	});
+	
 	return this;
   },
-
-	// close: function() {
-	// 
-	// 	$('#shift-details').dialog('close');
-	// 	this.remove();
-	// 	this.add();
-	// },
 
   removeEmployee: function(event) {
 	var that = this;
@@ -149,22 +139,26 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
 
 	    }
 	});
+	
 
   },
   
   deleteShift: function(event) {
+	  console.log(this)
+
 	var that = this;
 	event.preventDefault();
+	console.log(that.model);
+	console.log(this);
 	that.collection.sync("delete", that.model);
 	
-	that.remove();
-	that.render();
+	//closes dialog created in parent view
+	this.parentView.$dialogEl.dialog('close');
+	this.remove();
 	
-	$('#shift-details').dialog('close');
-
 	that.collection.remove(that.model);
-	that.parentView.reRender(that);
+	that.parentView.reRender();
 
-  },
+  }
 
 });
