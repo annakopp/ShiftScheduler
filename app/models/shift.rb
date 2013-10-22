@@ -50,12 +50,17 @@ class Shift < ActiveRecord::Base
 
 
   def request_status(user)
-    return "full" unless available?
-    return "available" if user.admin?
-    req = self.shift_requests.select{|req| req.employee_id == user.id}.first  
-   
-    req ? req.status : "available"
-  end
+      if user.admin?
+        return available? ? "available" : "full"
+      else
+        req = shift_requests.select{|req| req.employee_id == user.id}.first
+        if req
+          return req.status
+        else
+          return available? ? "available" : "full"
+        end
+      end
+    end
 
   def can_be_requested_by?(user)
     return false if user.admin? || manager_id != user.manager_id || overlap?(user) 

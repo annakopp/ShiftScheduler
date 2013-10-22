@@ -5,56 +5,41 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-company = Company.create({name: "Awesome Stuff", admin_id: 1})
+company = Company.create({name: Faker::Company.name, admin_id: 1})
+
 admin = User.create({company_id: 1,
                     email: "admin@example.com",
-                    first_name: "Admin",
-                    last_name: "Adminerson",
+                    first_name: Faker::Name.first_name,
+                    last_name: Faker::Name.last_name,
                     manager_id: 1,
                     password: "password",
+                    password_confirmation: "password",
                     user_type: "admin",
                     account_status: "active"})
 
-employees = User.create([
-                  {company_id: 1,
-                   email: "anna@example.com",
-                   first_name: "Anna",
-                   last_name: "Kopp",
-                   manager_id: 1,
-                   password: "password",
-                   user_type: "employee",
-                   account_status: "active"},
-                 {company_id: 1,
-                  email: "douglas@example.com",
-                  first_name: "Douglas",
-                  last_name: "Spangler",
-                  manager_id: 1,
-                  password: "password",
-                  user_type: "employee",
-                  account_status: "active"},
-                {company_id: 1,
-                 email: "stefanie@example.com",
-                 first_name: "Stefanie",
-                 last_name: "Gray",
-                 manager_id: 1,
-                 password: "password",
-                 user_type: "employee",
-                 account_status: "active"},
-                 {company_id: 1,
-                  email: "ray@example.com",
-                  first_name: "Ray",
-                  last_name: "Cat",
-                  manager_id: 1,
-                  password: "password",
-                  user_type: "employee",
-                  account_status: "active"},
-                  {company_id: 1,
-                   email: "daniel@example.com",
-                   first_name: "Daniel",
-                   last_name: "Kopp",
-                   manager_id: 1,
-                   password: "password",
-                   user_type: "employee",
-                   account_status: "active"}
 
-                   ])
+12.times do 
+  User.create({company_id: 1,
+               email: Faker::Internet::email,
+               first_name: Faker::Name.first_name,
+               last_name: Faker::Name.last_name,
+               manager_id: 1,
+               password: "password",
+               password_confirmation: "password",
+               user_type: "employee",
+               account_status: "active"
+              })
+end
+
+
+60.times do 
+  random_date = Array(DateTime.now..DateTime.new(2014,1,1)).sample
+  
+  Shift.create({manager_id: 1, 
+                name: Faker::Company.bs, 
+                slots: 0, 
+                start_date: random_date, 
+                end_date: random_date + rand(0.2..0.3), 
+                max_slots: rand(1..5)
+                })
+end

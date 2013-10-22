@@ -1,12 +1,9 @@
 ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
-  el: "#shift-details",
 
   template: JST['shifts/show'],
 
   initialize: function(){
-    var that = this;
     this.parentView = this.options["parentView"];
-    this.render();
   },
 
   events: {
@@ -19,19 +16,15 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   },
 
   render: function() {
-	  
+	 
     var that = this;
-    if(!this.model){
-      this.$el.html("");
-      return ;
-    }
-
+		
     var renderedContent = this.template({
       shift: that.model
     });
-
     this.$el.html(renderedContent);
-    return this;
+	
+	return this;
   },
 
   removeEmployee: function(event) {
@@ -47,7 +40,7 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
           that.parentView.collection.fetch({
             success: function(){
               that.parentView.reRender();
-              that.render()
+              that.render();
             }
           });
         }
@@ -67,7 +60,7 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
           that.parentView.collection.fetch({
             success: function(){
               that.parentView.reRender();
-              that.render()
+              that.render();
             }
           });
         }
@@ -127,39 +120,35 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
  	var shiftId = parseInt(this.model.get("id"))
 	var shift_req = this.model.get("shift_requests").findWhere({shift_id: shiftId, employee_id: currentUserId})
 
+	shift_req.set("status", "pending");
 	that.model.get("shift_requests").sync("delete", shift_req, {
 	    success: function(){
 	      that.parentView.collection.fetch({
 	        success: function(){
-	          that.parentView.reRender();
-	          that.render()
+	          that.parentView.reRender(that);
+			  that.render();
 	        }
 	      });
 
 
 	    }
 	});
+	
 
   },
   
   deleteShift: function(event) {
+	var that = this;
 	event.preventDefault();
-    var that = this;
-    
+	that.collection.sync("delete", that.model);
 	
-	that.collection.sync("delete", that.model, {
-		success: function(){
-	      that.parentView.collection.fetch({
-	        success: function(){
-	          that.parentView.reRender();
-	          that.render()
-	        }
-	      });
+	//closes dialog created in parent view
+	this.parentView.$dialogEl.dialog('close');
+	this.remove();
+	
+	that.collection.remove(that.model);
+	that.parentView.reRender();
 
-
-	    }
-	});
-
-  },
+  }
 
 });
