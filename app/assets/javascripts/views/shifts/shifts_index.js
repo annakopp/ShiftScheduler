@@ -8,13 +8,19 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
     var that = this;
 	_.bindAll(this, 'select', 'eventClick')
     this.listenTo(that.collection, 'reset', that.addAll);
-
     that.collection.fetch({
       reset: true,
     });
 
   },
-
+  updateHeight: function() {
+	  $('#calendar').fullCalendar('option', 'height', this.getHeight());
+  },
+  
+  getHeight: function() {
+	  return $(window).height() - 115
+  },
+  
   render: function() {
     var that = this;
     this.$el.append(this.template());
@@ -25,11 +31,14 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
         center: "month, agendaWeek, agendaDay",
         right:  'today prev,next'
       },
+	  height: this.getHeight(),
 	  selectable: true,
 	  selectHelper: true,
 	  select: this.select,
-      aspectRatio: 2.5,
-      eventClick: this.eventClick
+      eventClick: this.eventClick,
+	  windowResize: function(view) {
+		  that.updateHeight();
+	  }
 
     });
 
