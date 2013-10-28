@@ -29,3 +29,9 @@ Shift Scheduler is an application built using Ruby on Rails and Backbone.js. It 
  - HTML
  - CSS
  - CanCan
+ 
+##Future 
+- Add notifications for both managers and employees when shifts are requested/approved/denied
+- Create filters to view only current or pending shifts
+- Ability to filter shifts by project names
+- Add data visualization for hours worked based on project categories
