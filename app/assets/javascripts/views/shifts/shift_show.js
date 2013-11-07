@@ -140,6 +140,7 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
   deleteShift: function(event) {
 	var that = this;
 	event.preventDefault();
+	
 	that.collection.sync("delete", that.model);
 	
 	//closes dialog created in parent view
@@ -147,7 +148,6 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
 	this.remove();
 	
 	that.collection.remove(that.model);
-	that.parentView.reRender();
 
   }
 
