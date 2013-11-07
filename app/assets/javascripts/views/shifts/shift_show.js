@@ -118,10 +118,10 @@ ShiftScheduler.Views.ShiftShow = Backbone.View.extend({
     var that = this;
     
  	var shiftId = parseInt(this.model.get("id"))
-	var shift_req = this.model.get("shift_requests").findWhere({shift_id: shiftId, employee_id: currentUserId})
-
-	shift_req.set("status", "pending");
-	that.model.get("shift_requests").sync("delete", shift_req, {
+	var shiftReqCollection = that.model.get("shift_requests")
+	var shiftReq = shiftReqCollection.findWhere({shift_id: shiftId, employee_id: currentUserId})
+	
+	shiftReqCollection.sync("delete", shiftReq, {
 	    success: function(){
 	      that.parentView.collection.fetch({
 	        success: function(){
