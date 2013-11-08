@@ -59,7 +59,7 @@ ShiftScheduler.Views.ShiftsIndex = Backbone.View.extend({
 		this.$dialogEl.dialog({
 			modal: true,
 			width: 470,
-			title: this.collection.get(event).get("title")
+			title: this.collection.get(event).get("title").toUpperCase()
 		});
 
   },

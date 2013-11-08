@@ -21,7 +21,7 @@
 	padding: 10px;
 	text-decoration: none;
 	text-transform: uppercase;
-	color: #3a87ad;
+	color: black;
 	font-size: 14px;
 	border-radius: 10px;
 
@@ -87,17 +87,29 @@
 .sign-up > form input{
 	width: 300px;
 	font-size: 20px;
-	border-radius: 6px;
-	border: 1px solid white;
+	border-radius: 10px;
+	padding-left: 10px;
+	border: 1px solid #e67e22;
 	outline: none;
 }
 
-.sign-up > form input[type="submit"]{
+.standard-btn{
+	border-radius: 10px;
 	width: 100px;
-    background-color: #CCCCCC;
+    background-color: #f1c40f;
 	font-size: 20px;
-	border: 1px solid #C7C7C7;
+	border: 1px solid #e67e22;
 	outline: none;
+	cursor: pointer;
+}
+
+.guest-btn{
+	width: 100px;
+    background-color: #f1c40f;
+	font-size: 20px;
+	border: 1px solid #e67e22;
+	outline: none;
+	cursor: pointer;
 }
 
 .employee-list {

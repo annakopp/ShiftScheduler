@@ -16,6 +16,16 @@ admin = User.create({company_id: 1,
                     password_confirmation: "password",
                     user_type: "admin",
                     account_status: "active"})
+                    
+employee = User.create({company_id: 1,
+                    email: "employee@example.com",
+                    first_name: Faker::Name.first_name,
+                    last_name: Faker::Name.last_name,
+                    manager_id: 1,
+                    password: "password",
+                    password_confirmation: "password",
+                    user_type: "employee",
+                    account_status: "active"})
 
 
 12.times do 

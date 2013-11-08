@@ -1,14 +1,4 @@
 <div id="shift-dialog-template">
-<header class="shift-details-header">
-  <h2>
-      <%= shift.get("title") %> 
-  </h2>
-  <% if (ability.can("crud", ShiftScheduler.Models.Shift)) { %>
-  <button class="shift-delete-button">
-      Delete
- </button>
- <% }%>
-</header>
 
 <div class="shift-info">
   <ul>
@@ -26,7 +16,7 @@
       <% if (shift_request.get("status") === "approved") {%>
       <li>
         <% if (ability.can("crud", ShiftScheduler.Models.Shift)) { %>
-          <button class="remove-employee-button"
+          <button class="remove-employee-button standard-btn"
                   data-id="<%= shift_request.get('id') %>">
                   Remove
           </button>
@@ -49,7 +39,7 @@
                   data-id="<%= shift_request.get('id') %>">
                   Approve
           </button>
-          <button class="deny-employee-button"
+          <button class="deny-employee-button standard-btn"
                   data-id="<%= shift_request.get('id') %>">
                   Deny
           </button>
@@ -66,7 +56,7 @@
 
 <% if (shift.get("can_request")) {%>
 
-  <button class="request-shift-button"
+  <button class="request-shift-button standard-btn"
           data-id="<%= shift.get('id') %>">
           Request
   </button>
@@ -74,9 +64,18 @@
 
 <% if (shift.get("can_cancel")) {%>
 
-  <button class="cancel-shift-button"
+  <button class="cancel-shift-button standard-btn"
           data-id="<%= shift.get('id') %>">
           Cancel
   </button>
 <%}%>
+</div>
+
+<div class="shift-delete">
+
+  <% if (ability.can("crud", ShiftScheduler.Models.Shift)) { %>
+  <button class="shift-delete-button standard-btn" >
+      Delete
+ </button>
+ <% }%>
 </div>

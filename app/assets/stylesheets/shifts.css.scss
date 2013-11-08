@@ -20,7 +20,7 @@
 .shift-add-form {
 	margin: auto;
 	width: 300px;
-	font-size: 20px;
+	font-size: 15px;
 	padding: 10px;
 }
 
@@ -51,18 +51,16 @@
 }
 
 .new-shift-form >label > input#start-time {
-	width: 103px;
+	width: 150px;
 }
 
 .new-shift-form >label > input#end-time {
-	width: 103px;
+	width: 150px;
 }
 
 .new-shift-form >label > input#slot-num {
 	width: 40px;
 }
-
-
 
 
 .shift-details {
@@ -73,8 +71,12 @@
 
 }
 
-.shift-details > header{
-  font-size: 16px;
+.ui-dialog-title {
+	font-size: 19px;
+}
+
+#shift-container {
+	padding-left: 25px;
 }
 
 .shift-details > .shift-info{
@@ -88,23 +90,23 @@
 //event colors
 
 .pending {
-	background-color: blue;
+	background-color: #f39c12;
 }
 
 .full {
-	background-color: red;
+	background-color: #c0392b;
 }
 
 .available {
-	background-color: #3a87ad;
+	background-color: #3498db;
 }
 
 .denied {
-	background-color: red;
+	background-color: #7f8c8d;
 }
 
 .approved {
-	background-color: green;
+	background-color: #27ae60;
 }
 
 .calendar-stuff {

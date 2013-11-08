@@ -25,15 +25,14 @@ body, div, ul, li, h1, h2, h3 {
 }
 
 body {
-  background-image: url('tweed.png');
+  background-color: #34495e;
 }
 ul {
   list-style: none;
 }
 
 .transparent-box {
-   background-color:rgba(247, 247, 247, 0.7);
-   box-shadow: 3px 3px 3px 3px #ccc;
+   background-color: #ecf0f1;
    border-radius: 10px;
 }
 
@@ -78,7 +77,6 @@ ul {
   padding: 10px;
   margin-bottom: 15px;
   width: auto;
-/*  float: left;*/
 
 }
 
@@ -89,7 +87,6 @@ ul {
   border: 0;
 }
 
-
 #calendar .fc-content {
   text-transform: uppercase;
   font-size: 14px;
@@ -97,4 +94,8 @@ ul {
 
 #calendar .fc-today {
   background-color: #B4CDD5;
+}
+
+#calendar .fc-event {
+ 	border: 1px solid white
 }
